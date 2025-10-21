@@ -11,8 +11,21 @@ Cilj ovog projektnog zadatka je razviti platformu koja bi olakšala život vlasn
 Problem koji ovaj projekt nastoji razriješiti odnosi se na nedostatak pouzdanih informacija o šetačima i organizaciji cjelokupne šetnje. Problematiku rješavamo razvojem web aplikacije koja bi omogućila registraciju korisnika u ulozi šetača ili vlasnika pasa kreiranjem detaljnih profila pasa i šetača. Nadalje, korisnicima će biti omogućeno pregledavanje i filtriranje termina prema različitim značajkama, rezervacija termina te plaćanje usluga putem vanjskih servisa poput PayPala ili kreditnih kartica. Platforma će uključivati integrirani kalendar koji bi omogućio pregled slobodnih termina i integrirani chat sustava koji bi olakšao komunikaciju između vlasnika i šetača.
 
 # Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
-
+* Sustav omogućuje korisnicima odabir uloge prilikom prvog pristupa (vlasnik pasa ili šetač pasa).
+* Korisnici se mogu registrirati pomoću imena, prezimena, lozinke i broja mobitela.
+* Korisnici se mogu prijaviti pomoću imena, prezimena i lozinke.
+* Korisnici mogu izbrisati svoje račune.
+* Sustav omogućuje šetačima uređivanje profila s podacima o lokaciji i dostupnim terminima.
+* Šetači imaju mogućnost definiranje tipa šetnje (individualna ili grupna), cijene i trajanja termina.
+* Sustav omogućuje vlasnicima registraciju više pasa, pri čemu svaki pas ima zaseban profil s osnovnim podacima.
+* Vlasnici mogu pretraživati šetača prema lokaciji, cijeni i prosječnoj ocjeni korisnika.
+* Sustav omogućuje vlasnicima rezervaciju termina šetnje putem vanjske kalendarske usluge.
+* Šetači mogu prihvatiti ili odbiti rezervacija vlasnika.
+* Sustav omogućuje komunikaciju između šetača i vlasnika putem integriranog chat sustava.
+* Vlasnicima je omogućeno otkazivanje rezervacije šetnje unutar zadanog roka.
+* Sustav omogućuje vlasnicima plaćanje šetnji putem vanjskog platnog servisa.
+* Administrator upravlja korisnicima i cijenom članstva.
+   
 # Tehnologije
 
 
