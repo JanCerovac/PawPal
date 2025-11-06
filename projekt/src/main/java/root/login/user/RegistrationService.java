@@ -31,8 +31,9 @@ public class RegistrationService {
      * registracija korisnika
      * @param username username/email
      * @param rawPassword šifra unesena u form
+     * @param role može biti OWNER ili WALKER
      */
-    public void register(String username, String rawPassword) {
+    public void register(String username, String rawPassword, String role) {
         // ne dopuštaj već registriranom korisniku
         // ponovnu registraciju
         if (userDetailsManager.userExists(username)) {
@@ -45,7 +46,7 @@ public class RegistrationService {
                 // enkodiraj šifru prije spremanja
                 .password(passwordEncoder.encode(rawPassword))
                 // ovdje odlučujemo o 'ulozi' korisnika
-                .roles("USER")
+                .roles(role)
                 .build();
 
         // spremi korisnika u memoriju

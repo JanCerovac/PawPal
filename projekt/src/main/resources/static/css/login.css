@@ -46,6 +46,7 @@ body{
 .createAccount {
     justify-self: center;
     align-self: center;
+    text-decoration: none;
     color: #4f4f4f;
     background-color: white;
     border-radius: 10px;
@@ -53,6 +54,7 @@ body{
     font-size: 1.5rem;
     width: 85%;
     border: none;
+    text-align: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -137,12 +139,12 @@ p {
 }
 
 .login_button input:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 }
 
 .createAccount:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 }
 

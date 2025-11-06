@@ -5,6 +5,9 @@
 </head>
 <body>
 <h1>Welcome!</h1>
+<div th:if="${role != null}">
+    Hello, <b>[[${username}]]</b> — your role is [[${role}]].
+</div>
 
 <p>You are logged in.</p>
 

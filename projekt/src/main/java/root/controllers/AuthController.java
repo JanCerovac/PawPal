@@ -38,8 +38,8 @@ public class AuthController {
         // da se Thymeleaf može vezati za njega
         model.addAttribute("registrationRequest", new RegistrationRequest());
 
-        // templates/register.html
-        return "register";
+        // templates/registration.html
+        return "registration";
     }
 
     /**
@@ -53,19 +53,23 @@ public class AuthController {
             HttpServletRequest request
     ) {
         // ako je validacija neuspješna,
-        // vrati se nazad za register.html
+        // vrati se nazad za registration.html
         // i pokaži greške
         if (result.hasErrors()) {
-            return "register";
+            return "registration";
         }
 
         try {
             // stvori korisnika u memoriji
-            registrationService.register(registrationRequest.getEmail(), registrationRequest.getPassword());
+            registrationService.register(
+                    registrationRequest.getUsername(),
+                    registrationRequest.getPassword(),
+                    registrationRequest.getRole()
+            );
         } catch (RuntimeException e) {
             // ako korisnik postoji, dodaj error u html
-            result.rejectValue("email", "error.registrationRequest", e.getMessage());
-            return "register";
+            result.rejectValue("username", "error.registrationRequest", e.getMessage());
+            return "registration";
         }
 
         // ako je registracija uspješna,

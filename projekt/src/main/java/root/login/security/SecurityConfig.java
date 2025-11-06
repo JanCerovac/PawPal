@@ -23,8 +23,8 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
         // 'demo' korisnik
         var user = User.withUsername("admin")
-                .password(passwordEncoder.encode("password"))
-                .roles("USER")
+                .password(passwordEncoder.encode("1234"))
+                .roles("ADMIN")
                 .build();
 
         // 'user store' (privremeno u memoriji)
