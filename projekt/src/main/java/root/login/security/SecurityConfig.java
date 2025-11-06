@@ -3,6 +3,7 @@ package root.login.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     /**
@@ -47,7 +49,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         // ovi 'endpoints' ne zahtjevaju login
-                        .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                         // svi ostali zahtjevaju
                         .anyRequest().authenticated()
                 )
@@ -57,6 +59,13 @@ public class SecurityConfig {
                         // gdje idemo nakon uspješnog login-a
                         .defaultSuccessUrl("/", true)
                         .permitAll()
+                )
+                .oauth2Login(oauth -> oauth
+                        // url redirect za google login
+                        .loginPage("/oauth2/authorization/google")
+                        // gdje idemo nakon uspješnog login-a
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/login?error")
                 )
                 .logout(logout -> logout
                         // gdje idemo nakon logout-a
