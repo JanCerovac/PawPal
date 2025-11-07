@@ -1,34 +1,32 @@
-package root.login.security;
+package root;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import root.database.repositories.UserRepository;
+import root.services.login.GoogleOidcUserService;
+import root.services.login.PawPalUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    /**
-     * privremeno spremanje podataka za login,
-     * dok nemamo osposobljenu bazu podataka.
-     * Spring Security zove ovu funkciju kako bi pronašao korisnike 'by username'
-     */
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-        // 'demo' korisnik
-        var user = User.withUsername("admin")
-                .password(passwordEncoder.encode("1234"))
-                .roles("ADMIN")
-                .build();
+    private final GoogleOidcUserService googleOidcUserService;
+    private final PawPalUserDetailsService userDetailsService;
 
-        // 'user store' (privremeno u memoriji)
-        return new InMemoryUserDetailsManager(user);
+    public SecurityConfig(
+            GoogleOidcUserService googleOidcUserService,
+            PawPalUserDetailsService userDetailsService
+    ) {
+        this.googleOidcUserService = googleOidcUserService;
+        this.userDetailsService = userDetailsService;
     }
 
     /**
@@ -47,9 +45,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // privremeno dopušta 'requests' bez csrf
+                // TODO: makni ovo
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/setup")  // or "/api/**"
+                )
+                // naš 'interceptor'
+                .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
                         // ovi 'endpoints' ne zahtjevaju login
-                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(
+                                "/users", "/register", "/login", "/css/**", "/js/**", "/images/**"
+                        ).permitAll()
                         // svi ostali zahtjevaju
                         .anyRequest().authenticated()
                 )
@@ -63,6 +70,8 @@ public class SecurityConfig {
                 .oauth2Login(oauth -> oauth
                         // url redirect za google login
                         .loginPage("/oauth2/authorization/google")
+                        // naš 'interceptor'
+                        .userInfoEndpoint(ui -> ui.oidcUserService(googleOidcUserService))
                         // gdje idemo nakon uspješnog login-a
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error")

@@ -1,0 +1,154 @@
+<!-- WORK IN PROGRESS -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Setup</title>
+</head>
+<body>
+
+<p>Hello, <b th:text="${username}">user</b></p>
+
+<form id="roleForm">
+    <fieldset>
+        <legend>Select your role</legend>
+
+        <label>
+            <input type="radio" name="role" value="OWNER" required>
+            Owner
+        </label>
+
+        <label style="margin-left:1rem">
+            <input type="radio" name="role" value="WALKER" required>
+            Walker
+        </label>
+    </fieldset>
+
+    <!-- OWNER-only fields -->
+    <div id="ownerFields" hidden style="margin-top:1rem">
+        <h4>Owner details</h4>
+        <label>
+            Pet name
+            <input type="text" name="petName" data-role-required="OWNER">
+        </label>
+        <br>
+        <label>
+            Address
+            <input type="text" name="address" data-role-required="OWNER">
+        </label>
+    </div>
+
+    <!-- WALKER-only fields -->
+    <div id="walkerFields" hidden style="margin-top:1rem">
+        <h4>Walker details</h4>
+        <label>
+            Years of experience
+            <input type="number" name="experienceYears" min="0" data-role-required="WALKER">
+        </label>
+        <br>
+        <label>
+            Availability notes
+            <input type="text" name="availability" data-role-required="WALKER">
+        </label>
+    </div>
+</form>
+
+<button id="registerBtn">Register</button>
+
+<script th:inline="javascript">
+    function formToJSON(formEl){
+
+
+
+    // Coerce number field
+
+    return obj;
+  }
+
+    document.getElementById("registerBtn").addEventListener("click", async () => {
+        const data = new FormData(document.getElementById('roleForm'));
+        const obj = {};
+
+        data.forEach((v,k) => { if (v !== '') obj[k] = v; });
+        if (obj.experienceYears !== undefined) obj.experienceYears = Number(obj.experienceYears);
+
+        console.log(obj);
+
+        if (obj.role == "OWNER") {
+            const payload = {
+                username: /*[[${username}]]*/,
+                role: "OWNER",
+                address: obj.address,
+                petName: obj.petName
+            };
+
+            const res = await fetch("/setup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+
+            if (res.ok) {
+                window.location.href = "/";
+            } else {
+                const txt = await res.text();
+                alert("Error: " + res.status + " " + txt);
+            }
+        }
+    });
+</script>
+
+<script>
+    const form = document.getElementById('roleForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const ownerFields = document.getElementById('ownerFields');
+    const walkerFields = document.getElementById('walkerFields');
+
+    // Helper: collect form data into a JSON object
+
+
+    function applyRoleUI(role) {
+      // Show/hide sections
+      const isOwner  = role === 'OWNER';
+      const isWalker = role === 'WALKER';
+      ownerFields.hidden = !isOwner;
+      walkerFields.hidden = !isWalker;
+
+      // Toggle required on role-specific inputs
+      document.querySelectorAll('[data-role-required]').forEach(input => {
+        input.required = (input.getAttribute('data-role-required') === role);
+        if (!input.required) input.setCustomValidity(''); // clear any stale errors
+      });
+
+      // Enable submit when a role is chosen
+      submitBtn.disabled = !role;
+    }
+
+    form.addEventListener('change', (e) => {
+      if (e.target.name === 'role') {
+        applyRoleUI(e.target.value);
+      }
+    });
+
+    // Keep UX tight: prevent submit if hidden required fields still have values that fail constraints
+    form.addEventListener('submit', (e) => {
+      // Optional: custom validation could go here
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        form.reportValidity();
+      }
+
+        const payload = formToJSON(form);
+        const role = payload.role;
+
+        console.log(payload);
+    });
+
+    // If you want a default selection uncomment:
+    // const defaultRole = form.querySelector('input[name="role"][value="OWNER"]');
+    // defaultRole.checked = true; applyRoleUI('OWNER');
+</script>
+
+</body>
+</html>

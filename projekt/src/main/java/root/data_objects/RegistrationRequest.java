@@ -1,6 +1,5 @@
-package root.login.user;
+package root.data_objects;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 

@@ -1,10 +1,9 @@
-package root.login.user;
+package root.services;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
+import root.database.entites.UserEntity;
+import root.database.repositories.UserRepository;
 
 /**
  * service za registraciju korisnika
@@ -14,13 +13,13 @@ import org.springframework.stereotype.Service;
 public class RegistrationService {
 
     // naši korisnici u memoriji
-    private final InMemoryUserDetailsManager userDetailsManager;
+    private final UserRepository userDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
     // Spring koristi 'Depandencu Injection' kako bi
     // stvorio ove varijable
     public RegistrationService(
-            InMemoryUserDetailsManager userDetailsManager,
+            UserRepository userDetailsManager,
             PasswordEncoder passwordEncoder
     ) {
         this.userDetailsManager = userDetailsManager;
@@ -36,20 +35,18 @@ public class RegistrationService {
     public void register(String username, String rawPassword, String role) {
         // ne dopuštaj već registriranom korisniku
         // ponovnu registraciju
-        if (userDetailsManager.userExists(username)) {
+        if (userDetailsManager.existsByUsername(username)) {
             throw new RuntimeException("User already exists");
         }
 
         // napravi Spring Security korisnika
-        UserDetails user = User
-                .withUsername(username)
-                // enkodiraj šifru prije spremanja
-                .password(passwordEncoder.encode(rawPassword))
-                // ovdje odlučujemo o 'ulozi' korisnika
-                .roles(role)
-                .build();
+        UserEntity user = new UserEntity(username);
+        user.setPassword(passwordEncoder.encode(rawPassword));
+
+        // TODO: makni ovo
+        user.setRole(role);
 
         // spremi korisnika u memoriju
-        userDetailsManager.createUser(user);
+        userDetailsManager.save(user);
     }
 }
