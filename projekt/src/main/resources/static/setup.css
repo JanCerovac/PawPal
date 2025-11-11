@@ -1,0 +1,282 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #FDA400;
+    display: flex;
+    flex-direction: column;
+}
+
+.setup_topper{
+    background-color: #713600;
+    color: white;
+    height: fit-content;
+    min-height: 150px;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.role_frame {
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    width: calc(100% - 64px);
+    padding: 14px;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 32px;
+    margin-top: 40px;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.role_frame h1 {
+    font-size: 2rem;
+}
+
+.question {
+    background-color: #713600;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    font-size: 1.1rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.question p {
+    margin: 0;
+}
+
+
+.response_wrap {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.response {
+    background-color: #713600;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+form{
+    width: 100%;
+}
+
+.choose_role {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-self: center;
+    gap: 1.5rem;
+    margin-bottom: 20px;
+    background: #DEDEDE;
+    border-radius: 20px;
+    padding: 10px;
+    max-width: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    background: #34BA44;
+    color: white;
+    transform: scale(1.05);
+    cursor: default;
+}
+
+label {
+    font-size: 1.5rem;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-left: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+label:hover {
+    transform: scale(1.05);
+    background: #defee2;
+    cursor: pointer;
+}
+
+.setup_bttn_wrap {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.setup_button {
+    background: #DEDEDE;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    width: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.setup_button input{
+    background-color: #34BA44;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.setup_button input:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.profile_edit {
+    background-color: #713600;
+    border-radius: 10px;
+    margin-top: 40px;
+    padding: 14px;
+    margin: 32px;
+    width: calc(100% - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
+.profile_edit_doggo {
+    background-color: #713600;
+    border-radius: 10px;
+    margin-top: 40px;
+    padding: 14px;
+    margin: 32px;
+    width: calc(100% - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
+.fill_in {
+    color: white;
+    font-size: 2rem;
+    align-self: flex-start;
+    margin-bottom: 30px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.inputBox input {
+    color: #4f4f4f;
+    background: #DEDEDE;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 15px;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.inputBox textarea {
+    color: #4f4f4f;
+    background: #DEDEDE;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    padding: 15px;
+    width: 100%;
+    resize: vertical;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.inputBox p {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.confirm_bttn_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.confirm_button {
+    background: #DEDEDE;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.confirm_button input{
+    background-color: #34BA44;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.confirm_button input:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+@media (min-width: 550px) {
+    .setup_topper {
+        border-radius: 0;
+    }
+
+    .role_frame {
+        width: 550px;
+    }
+
+    .profile_edit {
+        max-width: 750px;
+    }
+
+    .profile_edit_doggo {
+        max-width: 750px;
+    }
+}
