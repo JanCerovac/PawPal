@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>PawPal</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+</head>
+<body>
+    <div class="topper">
+        <img th:src="@{/images/logo.png}">
+    </div>
+    <div class="big_wrap">
+        <div class="reg_info_card">
+            Create your account
+        </div>
+        <form th:action="@{/register}" th:object="${registrationRequest}" method="post">
+            <div class="choose_role">
+                <div class="text_role">I'm a:</div>
+                <input type="radio" name="role" id="owner" th:field="*{role}" value="OWNER">
+                <label for="owner">Dog owner</label>
+                <input type="radio" name="role" id="walker" th:field="*{role}" value="WALKER">
+                <label for="walker">Dog walker</label>
+            </div>
+            <div class="inputBox">
+                <p><input type="text" name="username" value="" th:field="*{username}" placeholder="Unique username:" required></p>
+
+                <p class="error_msg" th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}">Username error</p>
+            </div>
+            <div class="inputBox">
+                <p><input type="password" name="password" th:field="*{password}" placeholder="Secure password:" required></p>
+
+                <p class="error_msg" th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}">Password error</p>
+            </div>
+            <div class="reg_bttn_wrap">
+                <div class="reg_button">
+                    <p><input type="submit" value="Submit"></p>
+                </div>
+            </div>
+        </form>
+        <div class="login_card">
+            Already have an account?
+            <a th:href="@{/login}" class="login">
+                Login
+            </a>
+        </div>
+    </div>
+</body>
+</html>
