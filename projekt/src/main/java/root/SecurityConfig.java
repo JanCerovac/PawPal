@@ -2,6 +2,8 @@ package root;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,19 +14,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import root.database.repositories.UserRepository;
 import root.services.login.GoogleOidcUserService;
+import root.services.login.LoginFailureHandler;
 import root.services.login.PawPalUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final LoginFailureHandler loginFailureHandler;
     private final GoogleOidcUserService googleOidcUserService;
     private final PawPalUserDetailsService userDetailsService;
 
     public SecurityConfig(
+            LoginFailureHandler loginFailureHandler,
             GoogleOidcUserService googleOidcUserService,
             PawPalUserDetailsService userDetailsService
     ) {
+        this.loginFailureHandler = loginFailureHandler;
         this.googleOidcUserService = googleOidcUserService;
         this.userDetailsService = userDetailsService;
     }
@@ -63,6 +69,9 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         // naš 'endpoint' za login
                         .loginPage("/login")
+                        // 'interceptor' za neuspješan login
+                        .failureUrl("/login?error")
+                        .failureHandler(loginFailureHandler)
                         // gdje idemo nakon uspješnog login-a
                         .defaultSuccessUrl("/", true)
                         .permitAll()
@@ -83,5 +92,10 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
+        return cfg.getAuthenticationManager();
     }
 }

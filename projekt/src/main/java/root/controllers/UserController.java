@@ -16,12 +16,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public Iterable<UserEntity> findAllEmployees() {
+    public Iterable<UserEntity> getUsers() {
         return this.userRepository.findAll();
-    }
-
-    @PostMapping("/users")
-    public UserEntity addUser(@RequestBody UserEntity employee) {
-        return this.userRepository.save(employee);
     }
 }

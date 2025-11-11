@@ -24,6 +24,15 @@
         <div class="inputBox">
             <p><input type="password" name="password" placeholder="Password:" required></p>
         </div>
+
+        <div th:if="${param.error}">
+            <p class="info" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION_MESSAGE}">Login failed.</p>
+        </div>
+
+        <div th:if="${param.logout}">
+            <p class="info">You have been logged out.</p>
+        </div>
+
         <div class="login_bttn_wrap">
 
             <!-- google sign in button -->

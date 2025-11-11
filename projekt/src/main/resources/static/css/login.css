@@ -107,7 +107,6 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-left: 35px;
     margin-bottom: 20px;
 }
 
@@ -146,6 +145,11 @@ p {
 .createAccount:hover{
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.info {
+    color: white;
+    margin-left: 35px;
 }
 
 @media (min-width: 550px) {
@@ -235,6 +239,7 @@ p {
   max-width: 400px;
   min-width: min-content;
   text-decoration: none;
+  margin-left: 35px;
 }
 
 .gsi-material-button .gsi-material-button-icon {

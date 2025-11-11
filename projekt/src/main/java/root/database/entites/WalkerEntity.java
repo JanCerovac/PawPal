@@ -7,48 +7,23 @@ import jakarta.persistence.*;
  * Entity profila WALKER
  */
 @Entity
-@Table(name = "profile_walkers")
+@Table(name = "walkers")
 public class WalkerEntity {
     @Id
     private String username;
 
-    @OneToOne(optional = false)
-    @JoinColumn(
-            name = "user_id",
-            referencedColumnName = "username",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_user_owner")
-    )
-    private UserEntity user;
+    private String name;
+    private String surname;
+    private String contact;
+    private String location;
 
-    @Column(nullable = false)
-    private Integer experienceYears;
+    private WalkerEntity() {}
 
-    @Column
-    private String availability;
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.username = user.getUsername();
-        this.user = user;
-    }
-
-    public Integer getExperienceYears() {
-        return experienceYears;
-    }
-
-    public void setExperienceYears(Integer experienceYears) {
-        this.experienceYears = experienceYears;
-    }
-
-    public String getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(String availability) {
-        this.availability = availability;
+    public WalkerEntity(String username, String name, String surname, String contact, String location) {
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.contact = contact;
+        this.location = location;
     }
 }

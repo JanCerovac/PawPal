@@ -1,10 +1,7 @@
 # PawPal
 
 # Opis projekta
-Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija Programsko inženjerstvo na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
-
-Kratko opisati cilj Vašeg projekta. Vaša motivacija? (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
-
+Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija Programsko inženjerstvo na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
 
 Cilj ovog projektnog zadatka je razviti platformu koja bi olakšala život vlasnicima pasa jednostavnim pronalaženjem provjerenih šetača pasa, čime se olakšava svakodnevna briga za njihove ljubimce.
 
@@ -12,8 +9,8 @@ Problem koji ovaj projekt nastoji razriješiti odnosi se na nedostatak pouzdanih
 
 # Funkcijski zahtjevi
 * Sustav omogućuje korisnicima odabir uloge prilikom prvog pristupa (vlasnik pasa ili šetač pasa).
-* Korisnici se mogu registrirati pomoću imena, prezimena, lozinke i broja mobitela.
-* Korisnici se mogu prijaviti pomoću imena, prezimena i lozinke.
+* Korisnici se mogu registrirati pomoću korisničkog imena i lozinke.
+* Korisnici se mogu prijaviti pomoću korisničkog imena i lozinke.
 * Korisnici mogu izbrisati svoje račune.
 * Sustav omogućuje šetačima uređivanje profila s podacima o lokaciji i dostupnim terminima.
 * Šetači imaju mogućnost definiranje tipa šetnje (individualna ili grupna), cijene i trajanja termina.

@@ -2,9 +2,7 @@ package root.database.entites;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Entity našeg korisnika
@@ -27,7 +25,7 @@ public class UserEntity {
     @Column(nullable = true)
     private String password;
 
-    // TODO: što ovo radi?
+    // govori nam je li korisnik 'aktivan'
     private Boolean enabled = true;
 
     // WORKER / OWNER

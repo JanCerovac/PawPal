@@ -1,44 +1,37 @@
 package root.database.entites;
 
 import jakarta.persistence.*;
+import root.data_objects.Dog;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * --- WORK IN PROGRESS ---
  * Entity profila OWNER
  */
 @Entity
-@Table(name = "profile_owners")
+@Table(name = "owners")
 public class OwnerEntity {
     @Id
     private String username;
 
-    @Column(nullable = false)
-    private String petName;
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<DogEntity> dogs = new ArrayList<>();
 
-    @Column(nullable = false)
-    private String address;
+    private OwnerEntity() {}
 
-    public String getPetName() {
-        return petName;
-    }
-
-    public void setUsername(String username) {
+    public OwnerEntity(String username) {
         this.username = username;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setPetName(String petName) {
-        this.petName = petName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void addDog(DogEntity dog) {
+        dogs.add(dog);
     }
 }

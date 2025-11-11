@@ -1,14 +1,18 @@
 package root.services;
 
 import org.springframework.stereotype.Service;
+import root.data_objects.Dog;
+import root.data_objects.Walker;
+import root.database.entites.DogEntity;
 import root.database.entites.OwnerEntity;
+import root.database.entites.UserEntity;
 import root.database.entites.WalkerEntity;
 import root.database.repositories.OwnerRepository;
 import root.database.repositories.UserRepository;
 import root.database.repositories.WalkerRepository;
 
 /**
- * Service koji prilaže 'role' (WALKER/OWNER) postojećim korisnicima.
+ * Service koji prilaže stvara uloge.
  */
 @Service
 public class SetupService {
@@ -28,42 +32,47 @@ public class SetupService {
         this.ownerRepository = ownerRepository;
     }
 
+    public UserEntity getUser(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
+    }
+
     /**
-     * --- WORK IN PROGRESS ---
      * Stvori WalkerEntity i priloži ga ulogiranom korisniku
      */
     public void setupWalker(
             String username,
-            Integer experienceYears,
-            String availability
+            Walker walker
     ) {
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
-
-        var walker = new WalkerEntity();
-        walker.setUser(user);
-        walker.setExperienceYears(experienceYears);
-        walker.setAvailability(availability);
-
-        walkerRepository.save(walker);
+        userRepository.setRoleForUsername(username, "WALKER");
+        walkerRepository.save(new WalkerEntity(
+                username,
+                walker.name(),
+                walker.surname(),
+                walker.contact(),
+                walker.location()
+        ));
     }
 
     /**
-     * --- WORK IN PROGRESS ---
      * Stvori OwnerEntity i priloži ga ulogiranom korisniku
      */
     public void setupOwner(
             String username,
-            String petName,
-            String address
+            Dog dog
     ) {
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
-
-        var owner = new OwnerEntity();
-        owner.setUsername(user.getUsername());
-        owner.setPetName(petName);
-        owner.setAddress(address);
+        userRepository.setRoleForUsername(username, "OWNER");
+        OwnerEntity owner = new OwnerEntity(username);
+        owner.addDog(new DogEntity(
+                username,
+                dog.name(),
+                dog.breed(),
+                dog.age(),
+                dog.energylvl(),
+                dog.treat(),
+                dog.health(),
+                dog.social(),
+                owner
+        ));
 
         ownerRepository.save(owner);
     }

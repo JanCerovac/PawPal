@@ -15,13 +15,6 @@
             Create your account
         </div>
         <form th:action="@{/register}" th:object="${registrationRequest}" method="post">
-            <div class="choose_role">
-                <div class="text_role">I'm a:</div>
-                <input type="radio" name="role" id="owner" th:field="*{role}" value="OWNER">
-                <label for="owner">Dog owner</label>
-                <input type="radio" name="role" id="walker" th:field="*{role}" value="WALKER">
-                <label for="walker">Dog walker</label>
-            </div>
             <div class="inputBox">
                 <p><input type="text" name="username" value="" th:field="*{username}" placeholder="Unique username:" required></p>
 

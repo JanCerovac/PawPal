@@ -1,154 +1,144 @@
-<!-- WORK IN PROGRESS -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Setup</title>
+    <meta charset='utf-8'>
+    <title>PawPal</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" th:href="@{/css/setup.css}">
 </head>
 <body>
+    <div class="container">
+        <div class="setup_topper">
+            Setup your profile
+        </div>
 
-<p>Hello, <b th:text="${username}">user</b></p>
+        <div class="role_frame">
+            <h1>First a quick question:</h1>
+            <div class="question">
+                <h1>What is your role?</h1>
+                <p>(This can't be changed later on)</p>
+            </div>
+            <div class="response_wrap">
+                <div class="response">
+                    I'm a:
+                </div>
+            </div>
+            <form id="setup_form">
+                <div class="choose_role">
+                    <input type="radio" name="role" id="owner" checked>
+                    <label for="owner">Dog owner</label>
+                    <input type="radio" name="role" id="walker">
+                    <label for="walker">Dog walker</label>
+                </div>
+                <div class="setup_bttn_wrap">
+                    <div class="setup_button">
+                        <p><input type="submit" value="Finish"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-<form id="roleForm">
-    <fieldset>
-        <legend>Select your role</legend>
+        <div class="profile_edit">
+            <div class="fill_in">
+                Please fill in the following:
+            </div>
+            <form th:action="@{/setup}" method="post">
+                <input type="hidden" name="form" value="walker">
+                <div class="inputBox">
+                    <p>Name: </p>
+                    <p><input type="name" name="name" value="" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Surname: </p>
+                    <p><input type="surname" name="surname" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Contact: </p>
+                    <p><input type="contact" name="contact" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Location: </p>
+                    <p><input type="location" name="location" required></p>
+                </div>
+                <div class="confirm_bttn_wrap">
+                    <div class="confirm_button">
+                        <p><input type="submit" value="Confirm"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-        <label>
-            <input type="radio" name="role" value="OWNER" required>
-            Owner
-        </label>
-
-        <label style="margin-left:1rem">
-            <input type="radio" name="role" value="WALKER" required>
-            Walker
-        </label>
-    </fieldset>
-
-    <!-- OWNER-only fields -->
-    <div id="ownerFields" hidden style="margin-top:1rem">
-        <h4>Owner details</h4>
-        <label>
-            Pet name
-            <input type="text" name="petName" data-role-required="OWNER">
-        </label>
-        <br>
-        <label>
-            Address
-            <input type="text" name="address" data-role-required="OWNER">
-        </label>
+        <div class="profile_edit_doggo">
+            <div class="fill_in">
+                Please fill in the following regarding your dog:
+            </div>
+            <form th:action="@{/setup}" method="post">
+                <input type="hidden" name="form" value="owner">
+                <div class="inputBox">
+                    <p>Name: </p>
+                    <p><input type="name" name="name" value="" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Dog breed: </p>
+                    <p><input type="breed" name="breed" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Age: </p>
+                    <p><input type="age" name="age" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Energy level: </p>
+                    <p><input type="energylvl" name="energylvl" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Allowed treats: </p>
+                    <p><textarea name="treat" rows="3" placeholder="What treats would your dog like..." optional></textarea></p>
+                </div>
+                <div class="inputBox">
+                    <p>Healthcare: </p>
+                    <p><textarea name="health" rows="4" placeholder="Does your dog have any special needs (alergies, medication, etc. ...) ..." optional></textarea></p>
+                </div>
+                <div class="inputBox">
+                    <p>Personality: </p>
+                    <p><textarea name="social" rows="4" placeholder="Describe how friendly your dog is with other dogs..." optional></textarea></p>
+                </div>
+                <div class="confirm_bttn_wrap">
+                    <div class="confirm_button">
+                        <p><input type="submit" value="Confirm"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- WALKER-only fields -->
-    <div id="walkerFields" hidden style="margin-top:1rem">
-        <h4>Walker details</h4>
-        <label>
-            Years of experience
-            <input type="number" name="experienceYears" min="0" data-role-required="WALKER">
-        </label>
-        <br>
-        <label>
-            Availability notes
-            <input type="text" name="availability" data-role-required="WALKER">
-        </label>
-    </div>
-</form>
+    <script>
+        const container = document.getElementsByClassName('container')[0];
 
-<button id="registerBtn">Register</button>
+        const form = document.getElementById('setup_form');
+        const radioOwner = document.getElementById('owner');
+        const radioWalker = document.getElementById('walker');
 
-<script th:inline="javascript">
-    function formToJSON(formEl){
+        const role_frame = document.getElementsByClassName('role_frame')[0];
+        const profile_edit = document.getElementsByClassName('profile_edit')[0];
+        const profile_edit_doggo = document.getElementsByClassName('profile_edit_doggo')[0];
 
+        profile_edit.style.display = 'none';
+        profile_edit_doggo.style.display = 'none';
 
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            container.removeChild(role_frame);
 
-    // Coerce number field
-
-    return obj;
-  }
-
-    document.getElementById("registerBtn").addEventListener("click", async () => {
-        const data = new FormData(document.getElementById('roleForm'));
-        const obj = {};
-
-        data.forEach((v,k) => { if (v !== '') obj[k] = v; });
-        if (obj.experienceYears !== undefined) obj.experienceYears = Number(obj.experienceYears);
-
-        console.log(obj);
-
-        if (obj.role == "OWNER") {
-            const payload = {
-                username: /*[[${username}]]*/,
-                role: "OWNER",
-                address: obj.address,
-                petName: obj.petName
-            };
-
-            const res = await fetch("/setup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-
-            if (res.ok) {
-                window.location.href = "/";
-            } else {
-                const txt = await res.text();
-                alert("Error: " + res.status + " " + txt);
+            if (radioWalker.checked) {
+                profile_edit.style.display = 'block';
+            } else if (radioOwner.checked){
+                profile_edit_doggo.style.display = 'block';
             }
-        }
-    });
-</script>
+        });
 
-<script>
-    const form = document.getElementById('roleForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const ownerFields = document.getElementById('ownerFields');
-    const walkerFields = document.getElementById('walkerFields');
-
-    // Helper: collect form data into a JSON object
-
-
-    function applyRoleUI(role) {
-      // Show/hide sections
-      const isOwner  = role === 'OWNER';
-      const isWalker = role === 'WALKER';
-      ownerFields.hidden = !isOwner;
-      walkerFields.hidden = !isWalker;
-
-      // Toggle required on role-specific inputs
-      document.querySelectorAll('[data-role-required]').forEach(input => {
-        input.required = (input.getAttribute('data-role-required') === role);
-        if (!input.required) input.setCustomValidity(''); // clear any stale errors
-      });
-
-      // Enable submit when a role is chosen
-      submitBtn.disabled = !role;
-    }
-
-    form.addEventListener('change', (e) => {
-      if (e.target.name === 'role') {
-        applyRoleUI(e.target.value);
-      }
-    });
-
-    // Keep UX tight: prevent submit if hidden required fields still have values that fail constraints
-    form.addEventListener('submit', (e) => {
-      // Optional: custom validation could go here
-      if (!form.checkValidity()) {
-        e.preventDefault();
-        form.reportValidity();
-      }
-
-        const payload = formToJSON(form);
-        const role = payload.role;
-
-        console.log(payload);
-    });
-
-    // If you want a default selection uncomment:
-    // const defaultRole = form.querySelector('input[name="role"][value="OWNER"]');
-    // defaultRole.checked = true; applyRoleUI('OWNER');
-</script>
+        history.pushState({ screen: 'current' }, '', location.href);
+    </script>
 
 </body>
+
 </html>

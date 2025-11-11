@@ -13,16 +13,16 @@ import root.database.repositories.UserRepository;
 public class RegistrationService {
 
     // naši korisnici u memoriji
-    private final UserRepository userDetailsManager;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     // Spring koristi 'Depandencu Injection' kako bi
     // stvorio ove varijable
     public RegistrationService(
-            UserRepository userDetailsManager,
+            UserRepository userRepository,
             PasswordEncoder passwordEncoder
     ) {
-        this.userDetailsManager = userDetailsManager;
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,12 +30,11 @@ public class RegistrationService {
      * registracija korisnika
      * @param username username/email
      * @param rawPassword šifra unesena u form
-     * @param role može biti OWNER ili WALKER
      */
-    public void register(String username, String rawPassword, String role) {
+    public void register(String username, String rawPassword) {
         // ne dopuštaj već registriranom korisniku
         // ponovnu registraciju
-        if (userDetailsManager.existsByUsername(username)) {
+        if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("User already exists");
         }
 
@@ -43,10 +42,7 @@ public class RegistrationService {
         UserEntity user = new UserEntity(username);
         user.setPassword(passwordEncoder.encode(rawPassword));
 
-        // TODO: makni ovo
-        user.setRole(role);
-
         // spremi korisnika u memoriju
-        userDetailsManager.save(user);
+        userRepository.save(user);
     }
 }

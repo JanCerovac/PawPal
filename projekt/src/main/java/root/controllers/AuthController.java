@@ -1,7 +1,14 @@
 package root.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +25,15 @@ import root.services.RegistrationService;
 public class AuthController {
 
     private final RegistrationService registrationService;
+    private final AuthenticationManager authenticationManager;
 
     // 'inject' RegistrationService
-    public AuthController(RegistrationService registrationService) {
+    public AuthController(
+            RegistrationService registrationService,
+            AuthenticationManager authenticationManager
+    ) {
         this.registrationService = registrationService;
+        this.authenticationManager = authenticationManager;
     }
 
     /**
@@ -29,7 +41,7 @@ public class AuthController {
      * (GET /register)
      */
     @GetMapping("/register")
-    public String showRegister(Model model) {
+    public String register(Model model) {
         // dodaj prazni RegistrationRequest
         // da se Thymeleaf može vezati za njega
         model.addAttribute("registrationRequest", new RegistrationRequest());
@@ -43,10 +55,11 @@ public class AuthController {
      * (POST /register)
      */
     @PostMapping("/register")
-    public String processRegister(
+    public String register(
             @Valid @ModelAttribute RegistrationRequest registrationRequest,
             BindingResult result,
-            HttpServletRequest request
+            HttpServletRequest request,
+            HttpServletResponse response
     ) {
         // ako je validacija neuspješna,
         // vrati se nazad za registration.html
@@ -59,8 +72,7 @@ public class AuthController {
             // stvori korisnika u memoriji
             registrationService.register(
                     registrationRequest.getUsername(),
-                    registrationRequest.getPassword(),
-                    registrationRequest.getRole()
+                    registrationRequest.getPassword()
             );
         } catch (RuntimeException e) {
             // ako korisnik postoji, dodaj error u html
@@ -68,9 +80,22 @@ public class AuthController {
             return "registration";
         }
 
-        // ako je registracija uspješna,
-        // pošalji korisnika na login
-        return "redirect:/login";
+        // ulogiraj korisnika
+        var authRequest = UsernamePasswordAuthenticationToken.unauthenticated(
+                registrationRequest.getUsername(),
+                registrationRequest.getPassword()
+        );
+        Authentication authentication = authenticationManager.authenticate(authRequest);
+
+        // spremi u Security Context
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        // persist
+        new HttpSessionSecurityContextRepository().saveContext(context, request, response);
+
+        return "redirect:/";
     }
 
     /**
@@ -78,7 +103,10 @@ public class AuthController {
      * (GET /login)
      */
     @GetMapping("/login")
-    public String login() {
+    public String getLogin(Authentication authentication) {
+        if (authentication != null)
+            return "redirect:/";
+
         return "login";
     }
 }
