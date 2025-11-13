@@ -1,0 +1,165 @@
+body{
+    background-color: #FDA400;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #713600;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 20%;
+    border-radius: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#logo {
+    position: relative;
+    height: 100px;
+    width: auto;
+}
+
+#toolbar {
+    background-color: #713600;
+    margin: 20px;
+    color: white;
+    border-radius: 30px;
+}
+
+.walker, .owner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.walker button, .owner button {
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color:#713600;
+}
+
+.walker button:hover, .owner button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color:#381b00;
+}
+
+.walker button span,  .owner button span{
+    display: none;
+}
+
+.walkerData, .dogData {
+    background-color: white;
+    color: #713600;
+    margin: 0px 20px;
+    border-radius: 30px;
+}
+
+.walkerData div, .dogData div{
+    margin: 5px;
+    padding: 20px;
+}
+
+.manageAccount {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+button{
+    padding: 10px;
+    border-radius: 30px;
+    border-style: none;
+}
+
+#delete {
+    color: red;
+}
+
+#delete:hover, #edit:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#edit {
+    color: green;
+}
+
+@media (min-width: 615px) {
+    .walker button, .owner button{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .walker button span, .owner button span{
+        display: inline;
+        color: white;
+        padding: 5px;
+    }
+
+    .manageAccount, .dogData, .walkerData {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .manageAccount {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+}
+
+@media (min-width: 800px) {
+    .manageAccount, .dogData, .walkerData {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    header {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #toolbar {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media (min-width: 900px) {
+    html {
+        background: radial-gradient(circle,rgba(253, 164, 0, 1) 0%, rgba(113, 54, 0, 1) 100%);
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    body {
+        align-self: center;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    #toolbar, header {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    header {
+        margin-top: 5%;
+        width: 90%;
+    }
+
+}
+
