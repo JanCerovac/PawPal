@@ -10,6 +10,11 @@ body{
     flex-direction: column;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
 .setup_topper{
     background-color: #713600;
     color: white;
@@ -30,7 +35,7 @@ body{
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-self: center;
+    align-self: center;
     width: calc(100% - 64px);
     padding: 14px;
     padding-left: 0;
@@ -86,13 +91,15 @@ body{
 
 form{
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .choose_role {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-self: center;
+    align-self: center;
     gap: 1.5rem;
     margin-bottom: 20px;
     background: #DEDEDE;
@@ -170,7 +177,7 @@ label:hover {
     width: calc(100% - 64px);
     display: flex;
     flex-direction: column;
-    justify-self: center;
+    align-self: center;
 }
 
 .profile_edit_doggo {
@@ -182,7 +189,7 @@ label:hover {
     width: calc(100% - 64px);
     display: flex;
     flex-direction: column;
-    justify-self: center;
+    align-self: center;
 }
 
 .fill_in {
