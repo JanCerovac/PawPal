@@ -4,18 +4,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import root.database.repositories.OwnerRepository;
 import root.database.repositories.UserRepository;
+import root.database.repositories.WalkerRepository;
 
 @Controller
 public class RootController {
 
     private final UserRepository repository;
+    private final OwnerRepository ownerRepository;
+    private final WalkerRepository walkerRepository;
 
     // Spring Inject konstruktor
     public RootController(
-            UserRepository repository
+            UserRepository repository,
+            OwnerRepository ownerRepository,
+            WalkerRepository walkerRepository
     ) {
         this.repository = repository;
+        this.ownerRepository = ownerRepository;
+        this.walkerRepository = walkerRepository;
     }
 
     /**
@@ -32,6 +40,16 @@ public class RootController {
             return "redirect:/setup";
         }
 
-        return "index";
+        model.addAttribute("role", user.getRole().get());
+
+        if (user.getRole().get().equals("WALKER")) {
+            var walker = walkerRepository.findByUsername(user.getUsername());
+            model.addAttribute("walker", walker.get());
+        } else if (user.getRole().get().equals("OWNER")) {
+            var dog = ownerRepository.findByUsername(user.getUsername()).get().getDogs().get(0);
+            model.addAttribute("dog", dog);
+        }
+
+        return "homepage";
     }
 }

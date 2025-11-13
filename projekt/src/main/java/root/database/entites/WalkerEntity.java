@@ -26,4 +26,24 @@ public class WalkerEntity {
         this.contact = contact;
         this.location = location;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }

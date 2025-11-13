@@ -42,4 +42,40 @@ public class DogEntity {
         this.social = social;
         this.owner = owner;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getEnergylvl() {
+        return energylvl;
+    }
+
+    public String getTreat() {
+        return treat;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public String getSocial() {
+        return social;
+    }
+
+    public OwnerEntity getOwner() {
+        return owner;
+    }
 }

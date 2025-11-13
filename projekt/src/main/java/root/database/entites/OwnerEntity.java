@@ -34,4 +34,12 @@ public class OwnerEntity {
     public void addDog(DogEntity dog) {
         dogs.add(dog);
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public List<DogEntity> getDogs() {
+        return dogs;
+    }
 }
