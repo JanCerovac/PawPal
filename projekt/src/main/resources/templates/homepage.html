@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>PawPal</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/homepage.css'>
+    <script>
+        let role = "owner";
+
+let idDog = ["name", "breed", "age", "energyLevel", "allowedTreats", "healthcare", "personality"];
+let idWalker = ["name", "surname", "contact", "location"];
+
+let data = null;
+
+window.addEventListener("load", function() {
+    function hideElementsByClass(className) {
+        const elements = document.getElementsByClassName(className);
+
+        for (let el of elements) {
+            el.style.display = "none";
+        }
+
+    }
+
+    if (role === "walker") {
+        hideElementsByClass("owner");
+        hideElementsByClass("dogData");
+        showData("walker", data);
+    } else {
+        hideElementsByClass("walker");
+        hideElementsByClass("walkerData");
+        showData("owner", data);
+    }
+
+    function showData(className, data) {
+        const elements = document.getElementsByClassName(className);
+        if (className === "owner") var id = idDog;
+        else var id = idWalker;
+
+        for (let i = 0; i < id.length; i++) {
+            let el = document.getElementById(id[i]);
+            if (el) {
+                el.innerText += " " + data[i];
+            }
+        }
+
+    }
+})
+    </script>
+</head>
+<body>
+    <header>
+        <img id="logo"src="/images/logo.png">
+    </header>
+    <div id="toolbar">
+        <div class="walker">
+            <button>
+                <img src="/images/account.svg">
+                <span id="account">Account</span>
+            </button>
+            <button>
+                <img src="/images/paw.svg">
+                <span id="walk">Walk</span>
+            </button>
+            <button>
+                <img src="/images/addTask.svg">
+                <span id="addTask">Recommended walks</span>
+            </button>
+            <button>
+                <img src="/images/addCard.svg">
+                <span id="addCard">Payment method</span>
+            </button>
+        </div>
+        <div class="owner">
+            <button>
+                <img src="/images/bone.svg">
+                <span id="bone">Account</span>
+            </button>
+            <button>
+                <img src="/images/paw.svg">
+                <span id="walk">Walk</span>
+            </button>
+            <button>
+                <img src="/images/search.svg">
+                <span id="search">Find walker</span>
+            </button>
+            <button>
+                <img src="/images/notifications.svg">
+                <span id="notifications">Recommended walkers</span>
+            </button>
+        </div>
+    </div>
+    <div class="walkerData">
+        <div id="name">Name:</div>
+        <div id="surname">Surame: </div>
+        <div id="contact">Contact: </div>
+        <div id="location">Location: </div>
+    </div>
+    <div class="dogData">
+        <div id="name">Name: </div>
+        <div id="breed">Breed: </div>
+        <div id="age">Age: </div>
+        <div id="energyLevel">Energy level: </div>
+        <div id="allowedTreats">Allowed treats: </div>
+        <div id="healthcare">Healthcare: </div>
+        <div id="personality">Personality: </div>
+    </div>
+    <div class="manageAccount">
+        <button id="delete">Delete account</button>
+        <button id="edit">Edit account</button>
+    </div>
+</body>
+</html>
