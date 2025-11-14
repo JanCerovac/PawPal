@@ -8,41 +8,21 @@
     <script>
         let role = "[[${role}]]";
 
-        let idDog = ["name", "breed", "age", "energyLevel", "allowedTreats", "healthcare", "personality"];
-        let idWalker = ["name", "surname", "contact", "location"];
-
-        let data = null;
-
         window.addEventListener("load", function() {
             function hideElementsByClass(className) {
-            const elements = document.getElementsByClassName(className);
+                const elements = document.getElementsByClassName(className);
 
-            for (let el of elements) {
-                el.style.display = "none";
-                }
+                for (let el of elements) {
+                    el.style.display = "none";
+                    }
             }
 
             if (role === "WALKER") {
                 hideElementsByClass("owner");
                 hideElementsByClass("dogData");
-                showData("walker", data);
             } else {
                 hideElementsByClass("walker");
                 hideElementsByClass("walkerData");
-                showData("owner", data);
-            }
-
-            function showData(className, data) {
-                const elements = document.getElementsByClassName(className);
-                if (className === "owner") var id = idDog;
-                else var id = idWalker;
-
-                for (let i = 0; i < id.length; i++) {
-                    let el = document.getElementById(id[i]);
-                    if (el) {
-                        el.innerText += " " + data[i];
-                    }
-                }
             }
         })
     </script>

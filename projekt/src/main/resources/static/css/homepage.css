@@ -2,6 +2,7 @@ body{
     background-color: #FDA400;
     display: flex;
     flex-direction: column;
+    font-size: 1.25rem;
 }
 
 header {
@@ -43,6 +44,7 @@ header {
     flex-wrap: nowrap;
     justify-content: space-between;
     background-color:#713600;
+    font-size: 0.8rem;
 }
 
 .walker button:hover, .owner button:hover{
@@ -78,6 +80,7 @@ button{
     padding: 10px;
     border-radius: 30px;
     border-style: none;
+    font-size: 1rem;
 }
 
 #delete {
