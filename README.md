@@ -1,4 +1,4 @@
-# PawPal
+# [🔗PawPal](https://pawpal.click)
 
 # Opis projekta
 Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija Programsko inženjerstvo na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
