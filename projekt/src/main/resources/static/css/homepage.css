@@ -15,6 +15,7 @@ header {
     border-radius: 30px;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-top: 0;
 }
 
 #logo {
@@ -25,9 +26,12 @@ header {
 
 #toolbar {
     background-color: #713600;
-    margin: 20px;
     color: white;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
     border-radius: 30px;
+    margin-bottom: 0;
 }
 
 .walker, .owner {
@@ -57,26 +61,145 @@ header {
     display: none;
 }
 
-.walkerData, .dogData {
+.walkerData, .dogData, .subscription, .review, .reviewBlock, .walkerPhotos, .availableAppointments,
+    .appointment, .walkerCard, .filter {
+        background-color: white;
+        color: #713600;
+        margin: 5% 20px;
+        border-radius: 30px;
+        margin-bottom: 0;
+}
+
+.walkerCard {
+    margin: 20px;
+}
+
+.reviewBlock, .availableAppointments {
+    background-color:#7137004f;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+#searchByFilter {
+    margin-left: 5px;
+    background-color: #FDA400;
+    color: white;
+}
+
+.walkerData div, .dogData div, #edit, .subscription div, #yes, #no, .reviewBlock div, #add, 
+    .availableAppointments div, #book , .availableAppointments form, #submit, .walkerCard div,
+    .filter div, .book{
+        margin: 5px;
+        padding: 20px;
+}
+
+.reviewBlock div, .availableAppointments div, .availableAppointments form, .filter div, .filter form{
+    padding: 0;
+    margin: 10px;
+}
+
+.availableAppointments form, .filter form {
+    border-radius: 30px;
     background-color: white;
-    color: #713600;
-    margin: 0px 20px;
+    padding: 10px;
+}
+
+form input{
+    font-size: 1.25rem;
+    border-radius: 10px;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:center; 
+    justify-content:flex-start; 
+    margin: 15px;
+}
+
+.review div{
+    margin: 15px;
+}
+
+.review .comment{
+    max-width: 75%;
+}
+
+.review .image img{
+    width:100%;
+    height: auto;
+}
+
+.appointment {
+    display: flex;
+    flex-direction: column; 
+    justify-content:flex-start; 
+    margin: 15px;
+}
+
+.subscription {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.walkerPhotos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    background-color: #FDA400;
+}
+
+.walkerCard { 
+    cursor: pointer; 
+    transition: 0.2s; 
+} 
+
+.walkerCard:hover {
+    transform: scale(1.02);
+}
+
+#walkerPhotos img, .image {
+    width: 100%;
+    height: auto;
     border-radius: 30px;
 }
 
-.walkerData div, .dogData div{
-    margin: 5px;
-    padding: 20px;
+#edit, #yes, #no, #add, #book, #submit , .book{
+    margin-left: 65%;
+    padding: 10px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 5px;
 }
 
-.manageAccount {
+#starRate, .grade {
+    margin-left: 10px;
+    padding: 10px;
+    display: flex; 
+    align-items: center; 
+    gap: 5px;
+    color: #FDA400;
+}
+
+.manageAccount, .manageDog, .manageAppointment, .filterWalkers{
     margin: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-button{
+.filterWalkers button, #seeOtherWalkers{
+    color:#381b00;
+}
+
+button, input[type="submit"]{
     padding: 10px;
     border-radius: 30px;
     border-style: none;
@@ -87,12 +210,37 @@ button{
     color: red;
 }
 
-#delete:hover, #edit:hover {
+button:hover, input[type="submit"]:hover{
     transform: scale(1.1);
     cursor: pointer;
 }
 
-#edit {
+#edit, .edit, #add {
+    color: white;
+    background-color: #34BA44;
+}
+
+#yes, #no, #book, #submit, .book {
+    color: white;
+    background-color: #FDA400;
+    width: fit-content;
+}
+
+.edit {
+    display: flex; 
+    align-items: center; 
+    gap: 5px;
+}
+
+.delete {
+    color: white;
+    background-color: red;
+    display: flex; 
+    align-items: center; 
+    gap: 5px;
+}
+
+#addDog {
     color: green;
 }
 
@@ -110,9 +258,10 @@ button{
         padding: 5px;
     }
 
-    .manageAccount, .dogData, .walkerData {
-        margin-left: 10%;
-        margin-right: 10%;
+    .manageAccount, .dogData, .walkerData, .subscription, .review, .reviewBlock, .walkerPhotos, 
+        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter {
+            margin-left: 10%;
+            margin-right: 10%;
     }
 
     .manageAccount {
@@ -123,21 +272,18 @@ button{
 }
 
 @media (min-width: 800px) {
-    .manageAccount, .dogData, .walkerData {
-        margin-left: 20%;
-        margin-right: 20%;
+    .manageAccount, .dogData, .walkerData, .subscription, .review, .reviewBlock, .walkerPhotos, 
+        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter {
+            margin-left: 20%;
+            margin-right: 20%;
     }
 
-    header {
+    #toolbar, header {
         width: 80%;
         margin-left: 10%;
         margin-right: 10%;
     }
 
-    #toolbar {
-        margin-left: 10%;
-        margin-right: 10%;
-    }
 }
 
 @media (min-width: 900px) {
@@ -157,11 +303,15 @@ button{
     #toolbar, header {
         margin-left: 5%;
         margin-right: 5%;
+        width: 90%;
+    }
+
+    #toolbar {
+        margin-bottom: 5%;
     }
 
     header {
         margin-top: 5%;
-        width: 90%;
     }
 
 }
