@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>PawPal</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/homepage.css'>
+</head>
+<body>
+    <header>
+        <img id="logo"src="images/logo.png">
+    </header>
+    <div id="payment">
+        <form id="setPayment" method="post">
+            <div id="chooseFrequency">   
+                <span>Choose frequency of paying:</span>
+                <div class="inside">
+                    <input type="radio" name="frequency" value="monthly" required>
+                    <label for="monthly" id="monthly">Monthly</label>
+                </div>
+                <div class="inside">
+                    <input type="radio" name="frequency" value="annual">
+                    <label for="annual" id="annual">Annual</label>
+                </div>
+            </div>
+            <div id="chooseMethod">   
+                <span>Choose method of paying:</span>
+                <div class="inside">
+                    <input type="radio" name="method" value="card" required>
+                    <label for="card" id="card">Card</label>
+                </div>
+                <div class="inside">
+                    <input type="radio" name="method" value="PayPal">
+                    <label for="PayPal" id="PayPal">PayPal</label>
+                </div>
+            </div>
+            <div>
+                <input id="submit" type="submit" value="Confirm">
+            </div>
+        </form>
+    </div>
+    <div id="paymentPlan">
+        <span>Choosen payment plan: </span>
+        <div id="frequencyOfPaying"></div>
+        <div id="methodOfPaying"></div>
+    </div>
+    <div id="manageAccount">
+        <button id="change">Change</button>
+    </div>
+    <div id="toolbar">
+        <div class="walker">
+            <button class="account">
+                <img src="images/account.svg">
+                <span id="account">Account</span>
+            </button>
+            <button class="walk">
+                <img src="images/paw.svg">
+                <span id="walk">Walk</span>
+            </button>
+            <button id="recommendedWalks">
+                <img src="images/addTask.svg">
+                <span id="addTask">Recommended walks</span>
+            </button>
+            <button id="paymentMethod">
+                <img src="images/addCard.svg">
+                <span id="addCard">Payment method</span>
+            </button>
+        </div>
+    </div>
+</body>
+<script>
+    window.addEventListener("load", function() {
+        function showForm() {
+            //!IMPORTANT
+            //get prices of monthly and annual plan from database
+            const prices = {
+                monthly: 10,
+                annual: 100
+                };
+
+            document.getElementById("monthly").innerHTML = "Monthly: " + prices.monthly + " euros";
+
+            document.getElementById("annual").innerHTML = "Annual: " + prices.annual + " euros";
+
+            document.getElementById("payment").style.display = "";
+            document.getElementById("paymentPlan").style.display = "none";
+            document.getElementById("manageAccount").style.display = "none";
+            document.getElementById("toolbar").style.display = "none";
+        }
+
+        //!IMPORTANT
+        //check if walker paid after registration
+        let hasPaid = true;
+
+        if (!hasPaid) {
+            showForm();
+        } else {
+            //!IMPORTANT
+            //check frequency of paying in database
+            let frequency = "monthly";
+            //!IMPORTANT
+            //check method of paying in database
+            let method = "card";
+            //!IMPORTANT
+            //get the price walker is paying
+            let price = 10;
+
+            if (frequency == "monthly") {
+                document.getElementById("frequencyOfPaying").innerHTML = "current frequency: " + price + " euros monthly";
+            } else {
+                document.getElementById("frequencyOfPaying").innerHTML = "current frequency: " + price + " euros annual";
+            } 
+
+            if (method == "card") {
+                document.getElementById("methodOfPaying").innerHTML = "current method: card";
+            } else {
+                document.getElementById("methodOfPaying").innerHTML = "current method: PayPal";
+            }
+
+            document.getElementById("payment").style.display = "none";
+            document.getElementById("paymentPlan").style.display = "";
+            document.getElementById("manageAccount").style.display = "";
+            document.getElementById("toolbar").style.display = "";
+        }
+
+        document.getElementById("submit").addEventListener("click", function () { 
+            //!IMPORTANT
+            //redirect walker to external service payment page
+
+            //after successful payment redirect walker to homepage
+            window.location.href = "homepage.html";
+        });
+
+        document.getElementById("change").addEventListener("click", function () { 
+            showForm();
+        });
+
+        document.body.addEventListener("click", function (e) {
+            if (e.target.closest(".account")) {
+                // redirect to homepage page
+                window.location.href = "homepage.html";
+            }
+
+            if (e.target.closest(".walk")) {
+                // redirect to walk page
+                window.location.href = "walk.html";
+            }
+        });
+
+        document.getElementsById("recommendedWalks").addEventListener("click", function() {
+            //redirect walker to walk page
+            window.location.href = "walk.html";
+        });
+    })
+</script>
+</html>

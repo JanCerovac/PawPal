@@ -62,7 +62,7 @@ header {
 }
 
 .walkerData, .dogData, .subscription, .review, .reviewBlock, .walkerPhotos, .availableAppointments,
-    .appointment, .walkerCard, .filter {
+    .appointment, .walkerCard, .filter, #payment, #paymentPlan{
         background-color: white;
         color: #713600;
         margin: 5% 20px;
@@ -90,17 +90,18 @@ header {
 
 .walkerData div, .dogData div, #edit, .subscription div, #yes, #no, .reviewBlock div, #add, 
     .availableAppointments div, #book , .availableAppointments form, #submit, .walkerCard div,
-    .filter div, .book{
+    .filter div, .book, #payment form, #paymentPlan div, #paymentPlan span, #change{
         margin: 5px;
         padding: 20px;
 }
 
-.reviewBlock div, .availableAppointments div, .availableAppointments form, .filter div, .filter form{
-    padding: 0;
-    margin: 10px;
+.reviewBlock div, .availableAppointments div, .availableAppointments form, .filter div, .filter form, 
+    #payment form{
+        padding: 0;
+        margin: 10px;
 }
 
-.availableAppointments form, .filter form {
+.availableAppointments form, .filter form, #payment form {
     border-radius: 30px;
     background-color: white;
     padding: 10px;
@@ -170,7 +171,7 @@ form input{
     border-radius: 30px;
 }
 
-#edit, #yes, #no, #add, #book, #submit , .book{
+#edit, #yes, #no, #add, #book, #submit , .book, #change{
     margin-left: 65%;
     padding: 10px;
     display: flex; 
@@ -244,6 +245,37 @@ button:hover, input[type="submit"]:hover{
     color: green;
 }
 
+#payment {
+    margin-bottom: 20px;
+}
+
+#chooseFrequency, #chooseMethod {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px;
+}
+
+.inside {
+    margin-left: 5%;
+}
+
+#paymentPlan div {
+    margin-left: 10%;
+    padding: 10px;
+}
+
+#paymentPlan span {
+    margin-top: 10px;
+}
+
+#change {
+    margin: 15px;
+    margin-left: 65%;
+    background-color:#713600;
+    color: white;
+}
+
 @media (min-width: 615px) {
     .walker button, .owner button{
         display: flex;
@@ -259,7 +291,7 @@ button:hover, input[type="submit"]:hover{
     }
 
     .manageAccount, .dogData, .walkerData, .subscription, .review, .reviewBlock, .walkerPhotos, 
-        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter {
+        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter, #payment, #paymentPlan {
             margin-left: 10%;
             margin-right: 10%;
     }
@@ -273,7 +305,8 @@ button:hover, input[type="submit"]:hover{
 
 @media (min-width: 800px) {
     .manageAccount, .dogData, .walkerData, .subscription, .review, .reviewBlock, .walkerPhotos, 
-        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter {
+        .availableAppointments, .appointment, .walkerCard, .filterWalkers, .filter, #payment, 
+        #paymentPlan {
             margin-left: 20%;
             margin-right: 20%;
     }
@@ -314,5 +347,8 @@ button:hover, input[type="submit"]:hover{
         margin-top: 5%;
     }
 
+    #payment {
+        margin: 20px;
+    }
 }
 
