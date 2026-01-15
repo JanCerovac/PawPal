@@ -45,4 +45,8 @@ public class RegistrationService {
         // spremi korisnika u memoriju
         userRepository.save(user);
     }
+
+    public void delete(String username) {
+        userRepository.deleteUserForUsername(username);
+    }
 }

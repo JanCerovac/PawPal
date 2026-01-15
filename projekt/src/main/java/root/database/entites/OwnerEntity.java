@@ -25,7 +25,7 @@ public class OwnerEntity {
     )
     private List<DogEntity> dogs = new ArrayList<>();
 
-    private OwnerEntity() {}
+    public OwnerEntity() {}
 
     public OwnerEntity(String username) {
         this.username = username;
@@ -33,6 +33,10 @@ public class OwnerEntity {
 
     public void addDog(DogEntity dog) {
         dogs.add(dog);
+    }
+
+    public void removeDog(DogEntity dog) {
+        dogs.remove(dog);
     }
 
     public String getUsername() {

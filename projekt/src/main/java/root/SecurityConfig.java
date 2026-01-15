@@ -54,14 +54,14 @@ public class SecurityConfig {
                 // privremeno dopušta 'requests' bez csrf
                 // TODO: makni ovo
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/setup")  // or "/api/**"
+                        .ignoringRequestMatchers("/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
                 )
                 // naš 'interceptor'
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
                         // ovi 'endpoints' ne zahtjevaju login
                         .requestMatchers(
-                                "/users", "/register", "/login", "/css/**", "/js/**", "/images/**"
+                                "/ws/**", "/users", "/register", "/login", "/css/**", "/js/**", "/images/**"
                         ).permitAll()
                         // svi ostali zahtjevaju
                         .anyRequest().authenticated()
@@ -81,6 +81,11 @@ public class SecurityConfig {
                         .loginPage("/oauth2/authorization/google")
                         // naš 'interceptor'
                         .userInfoEndpoint(ui -> ui.oidcUserService(googleOidcUserService))
+                        .failureHandler((request, response, ex) -> {
+                            ex.printStackTrace();
+                            request.getSession(true).setAttribute("OAUTH_ERROR", ex.getMessage());
+                            response.sendRedirect("/login?error");
+                        })
                         // gdje idemo nakon uspješnog login-a
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error")

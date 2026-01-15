@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset='utf-8'>
     <title>PawPal</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/homepage.css'>
+    <link rel="stylesheet" th:href="@{/css/homepage.css}">
 </head>
 <body>
     <header>
-        <img id="logo"src="images/logo.png">
+        <img id="logo"src="/images/logo.png">
+    </header>
     </header>
     <div class="walkerPhotos">
         <div id="walkerPhotos"></div>
     </div>
     <div class="walkerData">
-        <div id="starRate"><img src="images/starRate.svg"></div>
+        <div id="starRate"><img src="/images/starRate.svg"></div>
         <div id="name">Name:</div>
         <div id="surname">Surame: </div>
         <div id="contact">Contact: </div>
         <div id="location">Location: </div>
         <button id="edit">
-            <img src="images/edit.svg">
+            <img src="/images/edit.svg">
             <span>Edit info</span>
         </button>
     </div>
@@ -35,39 +36,50 @@
         <div class="personality">Personality:</div>
         <div class="manageDog">
             <button class="delete">
-                <img src="images/delete.svg">
+                <img src="/images/delete.svg">
                 <span>Remove dog</span>
             </button>
             <button class="edit">
-                <img src="images/edit.svg">
+                <img src="/images/edit.svg">
                 <span>Edit dog info</span>
             </button>
         </div>
     </div>
     <div class="availableAppointments">
         <div class="appointmentContainer"></div>
-        <form id="setAppointment" method="post">
-            <div id="chooseType">   
+        <form id="setAppointment" th:action="@{/walk/walker/submit}" method="post">
+
+            <div id="chooseType">
                 <span>Choose type of walk:</span><br>
-                <input type="radio" id="individual" name="type" value="individual" required>
-                <label for="individual">individual</label>
-                <input type="radio" id="group" name="type" value="group">
-                <label for="group">group</label>
+
+                <input type="radio" id="type-individual" name="type" value="INDIVIDUAL" checked>
+                <label for="type-individual">Individual</label>
+
+                <input type="radio" id="type-group" name="type" value="GROUP">
+                <label for="type-group">Group</label>
             </div>
+
             <div class="text">
                 <input type="number" id="price" name="price" placeholder="Enter price" required
                     min="0">
             </div>
+
             <div class="text">
                 <input type="number" id="duration" name="duration" placeholder="Duration in minutes" 
                 required min="0">
             </div>
+
+            <div>
+                <input id="datetime" name="datetime" type="datetime-local" required>
+            </div>
+
             <div>
                 <input id="submit" type="submit" value="Save changes">
             </div>
+
         </form>
         <button id="add">
-            <img src="images/add.svg">
+            <img src="/images/add.svg">
             <span>Add new</span>
         </button>
     </div>
@@ -75,18 +87,19 @@
         <div class="type"></div>
         <div class="price"></div>
         <div class="duration"></div>
+        <div class="datetime"></div>
         <div class="manageAppointment">
             <button class="delete">
-                <img src="images/delete.svg">
+                <img src="/images/delete.svg">
                 <span>Remove</span>
             </button>
             <button class="edit">
-                <img src="images/edit.svg">
+                <img src="/images/edit.svg">
                 <span>Edit</span>
             </button>
         </div>
         <button class="book">
-            <img src="images/add.svg">
+            <img src="/images/add.svg">
             <span>Book</span>
         </button>
     </div>
@@ -115,7 +128,7 @@
         <button id="filterByGrade">Grade</button>
     </div>
     <div class="filter">
-        <form id="defineFilter" method="post" target="_self">
+        <form id="defineFilter">
             <div class="text">
                 <input type="text" id="walkerLocation" name="walkerLocation" 
                     placeholder="Enter location">
@@ -134,7 +147,7 @@
         </form>
     </div>
     <div class="walkerContainer"></div>
-    <div class="walkerCard" onclick="showWalkerToOwner()">
+    <div class="walkerCard">
         <div class="grade"></div>
         <div class="fullName"></div>
         <div class="location"></div>
@@ -143,48 +156,51 @@
     <div id="toolbar">
         <div class="walker">
             <button class="account">
-                <img src="images/account.svg">
+                <img src="/images/account.svg">
                 <span id="account">Account</span>
             </button>
             <button class="walk">
-                <img src="images/paw.svg">
+                <img src="/images/paw.svg">
                 <span id="walk">Walk</span>
             </button>
             <button id="recommendedWalks">
-                <img src="images/addTask.svg">
+                <img src="/images/addTask.svg">
                 <span id="addTask">Recommended walks</span>
             </button>
             <button id="paymentMethod">
-                <img src="images/addCard.svg">
+                <img src="/images/addCard.svg">
                 <span id="addCard">Payment method</span>
             </button>
         </div>
         <div class="owner">
             <button class="account">
-                <img src="images/bone.svg">
+                <img src="/images/bone.svg">
                 <span id="bone">Account</span>
             </button>
             <button class="walk">
-                <img src="images/paw.svg">
+                <img src="/images/paw.svg">
                 <span id="walk">Walk</span>
             </button>
             <button id="findWalker">
-                <img src="images/search.svg">
+                <img src="/images/search.svg">
                 <span id="search">Find walker</span>
             </button>
             <button id="recommendedWalkers">
-                <img src="images/notifications.svg">
+                <img src="/images/notifications.svg">
                 <span id="notifications">Recommended walkers</span>
             </button>
         </div>
     </div>
-    <script>
-        //IMPORTANT!
-        //get role from database
-        let role = "walker";
 
-        if (role == "owner") {
-            //!IMPORTANT
+    <script th:inline="javascript">
+        const DEFAULT_WALKER = /*[[${walker}]]*/ null;
+
+        //get role from database
+        let role = [[${role}]];
+        console.log(role);
+
+        if (role == "OWNER") {
+            // TODO: add subscribed to database
             // check in database if owner is subscribed to recieve info about new walkers
             let subscribed = false;
         }
@@ -227,95 +243,74 @@
             function showPhotos(photos) {
                 document.getElementById("walkerPhotos").innerHTML = "";
 
-                photos.forEach(photo => { 
+                photos.forEach(photo => {
                     document.getElementById("walkerPhotos").innerHTML += photo;
                 });
             }
 
-            function showWalkerData() {
-                //!IMPORTANT
-                //get walker data from database
-                const walkerDataFromDatabase = [
-                    {   rating: "",
-                        name: "Sanja",
-                        surname: "Horvat",
-                        contact: "099 123 456",
-                        location: "Zagreb"
-                    }
-                ];
+            function showWalkerData(walker) {
+                // pick JS walker if provided, otherwise Thymeleaf default
+                const w = walker ?? DEFAULT_WALKER;
+                if (!w) return;
 
-                const walkerData = walkerDataFromDatabase[0];
-
-                if (walkerData.rating == null || walkerData.rating == "") {
-                    document.getElementById("starRate").innerHTML = "<img src='images/starRate.svg'>" + "Not rated";
+                if (w.rating == null || w.rating == "") {
+                    document.getElementById("starRate").innerHTML = "<img src='/images/starRate.svg'>" + "Not rated";
                 } else {
-                    document.getElementById("starRate").innerHTML = "<img src='images/starRate.svg'>" + walkerData.rating;
+                    document.getElementById("starRate").innerHTML = "<img src='/images/starRate.svg'>" + walkerData.rating;
                 }
-                document.getElementById("name").innerHTML = "Name: " + walkerData.name;
-                document.getElementById("surname").innerHTML = "Surname: " + walkerData.surname;
-                document.getElementById("contact").innerHTML = "Contact: " + walkerData.contact;
-                document.getElementById("location").innerHTML = "Location: " + walkerData.location;
+                document.getElementById("name").innerHTML = "Name: " + w.name;
+                document.getElementById("surname").innerHTML = "Surname: " + w.surname;
+                document.getElementById("contact").innerHTML = "Contact: " + w.contact;
+                document.getElementById("location").innerHTML = "Location: " + w.location;
 
-                if (role === "owner") {
+                if (role === "OWNER") {
                     document.getElementById("edit").style.display = "none";
                 } else {
                     document.getElementById("edit").style.display = "";
                 }
             }
 
-            function showWalkerProfile() {
-                //!IMPORTANT
+            function showWalkerProfile(walker) {
+                // TODO: implement photos
                 //check if walker has profile photos
-                let hasPhotos = true;
-                if (hasPhotos) {
-                    //!IMPORTANT
-                    //get profile photos from database as a array
-                    let photos = [
-                        "<img src='images/dogWalker.webp'>"
-                    ];
-                    showPhotos(photos);
-                    showElementsByClass("walkerPhotos");
-                }
+                // let hasPhotos = true;
+                // if (hasPhotos) {
+                //     //get profile photos from database as a array
+                //     let photos = [
+                //         "<img src='/images/dogWalker.webp'>"
+                //     ];
+                //     showPhotos(photos);
+                //     showElementsByClass("walkerPhotos");
+                // }
 
-                showWalkerData();
-                showElementsByClass("walkerData");    
+                showWalkerData(walker);
+                showElementsByClass("walkerData");
 
-                //!IMPORTANT
-                //get appointments from database          
-                const appointments = [
-                    { 
-                        type: "group",
-                        price: "10 euros",
-                        duration: "1h30min"
-                    },
-                    {
-                        type: "individual",
-                        price: "8 euros",
-                        duration: "1h"
-                    }
-                ];
+                //get appointments from database
+                const appointments = ([[${walks}]] || []).map(parseWalkDetails)
+
                 document.querySelector(".appointmentContainer").innerHTML = "";
                 appointments.forEach(addAppointmentCard);
                 showElementsByClass("availableAppointments");
                 document.getElementById("setAppointment").style.display = "none";
 
-                //!IMPORTANT
+                // TODO: implement reviews
                 //get reviews from database
-                const reviews = [
-                    {
-                        grade: "5",
-                        comment: "Najbolji šetač ikad!",
-                        image: "<img src='images/dogWalker.webp'>"
-                    },
-                    {
-                        grade: "5",
-                        comment: "Moram se složiti s prethodnim komentarima!",
-                        image: "null"
-                    }
-                ];
-                document.querySelector(".reviewBlock").innerHTML = "";
-                reviews.forEach(addReviewCard);
-                showElementsByClass("reviewBlock");
+                // const reviews = [
+                //     {
+                //         grade: "5",
+                //         comment: "Najbolji šetač ikad!",
+                //         image: "<img src='/images/dogWalker.webp'>"
+                //     },
+                //     {
+                //         grade: "5",
+                //         comment: "Moram se složiti s prethodnim komentarima!",
+                //         image: "null"
+                //     }
+                // ];
+                // document.querySelector(".reviewBlock").innerHTML = "";
+                // reviews.forEach(addReviewCard);
+                // showElementsByClass("reviewBlock");
 
                 showElementsByClass("manageAccount");
             }
@@ -327,7 +322,7 @@
                 clone.classList.remove("template");
                 clone.style.display = "";
 
-                clone.querySelector(".grade").innerHTML = "<img src=images/starRate.svg>" + review.grade;
+                clone.querySelector(".grade").innerHTML = "<img src=/images/starRate.svg>" + review.grade;
                 clone.querySelector(".comment").innerHTML = review.comment;
                 if (!(review.image === "null")) {
                     clone.querySelector(".image").innerHTML = review.image;
@@ -345,7 +340,7 @@
                 clone.classList.remove("template");
                 clone.style.display = "";
 
-                clone.querySelector(".grade").innerHTML = "<img src=images/starRate.svg>" + walkerCard.starRate;
+                clone.querySelector(".grade").innerHTML = "<img src=/images/starRate.svg>" + walkerCard.starRate;
                 clone.querySelector(".fullName").innerHTML = "Full name: " + walkerCard.name + " " + walkerCard.surname;
                 clone.querySelector(".location").innerHTML = "Location: " + walkerCard.location;
                 clone.querySelector(".contact").innerHTML = "Contact: " + walkerCard.contact;
@@ -360,11 +355,13 @@
                 clone.classList.remove("template");
                 clone.style.display = "";
 
+                clone.dataset.eventId = appointment.id
                 clone.querySelector(".type").innerHTML = "Type: " + appointment.type;
                 clone.querySelector(".price").innerHTML = "Price: " + appointment.price;
                 clone.querySelector(".duration").innerHTML = "Duration: " + appointment.duration;
+                clone.querySelector(".datetime").innerHTML = "Date: " + appointment.datetime
 
-                if (role === "walker") {
+                if (role === "WALKER") {
                     clone.querySelector(".manageAppointment").style.display = "";
                     clone.querySelector(".book").style.display = "none";
                 } else {
@@ -382,6 +379,7 @@
                 clone.classList.remove("template");
                 clone.style.display = "block";
 
+                clone.dataset.dogId = dog.id
                 clone.querySelector(".name").innerHTML = "Name: " + dog.name;
                 clone.querySelector(".breed").innerHTML = "Breed: " + dog.breed;
                 clone.querySelector(".age").innerHTML = "Age: " + dog.age;
@@ -397,7 +395,7 @@
                 hideAll();
                 showElementsByClass("manageAccount");
                 
-                if (role === "walker") {
+                if (role === "WALKER") {
                     showWalkerProfile();   
 
                     document.getElementById("addDog").style.display = "none";
@@ -406,28 +404,11 @@
                     showElementsByClass("walker");
 
                 } else {
-                    //!IMPORTANT
+
                     //get dogs info from database
-                    const dogs = [
-                        {
-                            name: "Rex",
-                            breed: "Labrador",
-                            age: "3",
-                            energyLevel: "High",
-                            allowedTreats: "Carrots",
-                            healthcare: "Healthy",
-                            personality: "Friendly"
-                        },
-                        {
-                            name: "Milo",
-                            breed: "Beagle",
-                            age: "5",
-                            energyLevel: "Medium",
-                            allowedTreats: "Biscuits",
-                            healthcare: "Allergies",
-                            personality: "Curious"
-                        }
-                    ];
+                    const dogs = [[${dogs}]];
+                    console.log(dogs)
+
                     document.querySelector(".dogContainer").innerHTML = "";
                     dogs.forEach(addDogCard);
                     showElementsByClass("dogContainer");
@@ -466,93 +447,106 @@
                     document.getElementById("yes").style.display = "";
                     document.getElementById("no").style.display = "none";
 
-                    //!IMPORTANT
+                    // TODO: implement this
                     // get info about walkers that registred in last 24 hours from database
                     // or last n walkers 
-                    const newWalkers = [
-                        {
-                            starRate: "4.5",
-                            name: "Pero",
-                            surname: "Perić",
-                            location: "Zagreb",
-                            contact: "097 123 567"
-                        }, 
-                        {
-                            starRate: "Not rated",
-                            name: "Ana",
-                            surname: "Anić",
-                            location: "Rijeka",
-                            contact: "093 123 567"
-                        }
-                    ];
+                    const newWalkers = [[${walkers}]];
                     document.querySelector(".walkerContainer").innerHTML = "";
                     newWalkers.forEach(addWalkerCard);
                     showElementsByClass("walkerContainer");
                 }   
             } 
 
-            function findWalker() {
+            function findWalker(walkers) {
                 whereIsOwner = "findWalker";
 
                 //IMPORTANT!
                 //get info about selected walkers from database
                 //information about filter given in form
-                const filteredWalkers = [
-                    {
-                        starRate: "4.5",
-                        name: "Pero",
-                        surname: "Perić",
-                        location: "Zagreb",
-                        contact: "093 123 567"
-                    }, 
-                    {
-                        starRate: "Not rated",
-                        name: "Ana",
-                        surname: "Anić",
-                        location: "Zagreb",
-                        contact: "093 123 567"
-                    }
-                ];
+                const filteredWalkers = walkers;
                 document.querySelector(".walkerContainer").innerHTML = "";
                 filteredWalkers.forEach(addWalkerCard);
                 showElementsByClass("walkerContainer");
             };
 
-            function showWalkerToOwner() {
+            function showWalkerToOwner(cardEl) {
                 hideAll();
 
-                showWalkerProfile();
-                document.getElementById("add").style.display = "none";
+                // Extract values FROM THE CARD (not from .walkerData)
+                const starRateText = (cardEl.querySelector(".grade")?.textContent || "").trim();
 
+                const fullNameText = (cardEl.querySelector(".fullName")?.textContent || "").trim();
+                // expected "Full name: John Doe"
+                const fullName = fullNameText.includes(":")
+                    ? fullNameText.split(":").slice(1).join(":").trim()
+                    : fullNameText;
+
+                const parts = fullName.split(" ");
+                const name = parts.shift() || "";
+                const surname = parts.join(" ") || "";
+
+                const locationText = (cardEl.querySelector(".location")?.textContent || "").trim();
+                const location = locationText.includes(":")
+                    ? locationText.split(":").slice(1).join(":").trim()
+                    : locationText;
+
+                const contactText = (cardEl.querySelector(".contact")?.textContent || "").trim();
+                const contact = contactText.includes(":")
+                    ? contactText.split(":").slice(1).join(":").trim()
+                    : contactText;
+
+                const extractedWalker = {
+                    starRate: starRateText || "Not rated",
+                    name,
+                    surname,
+                    location,
+                    contact
+                };
+
+                console.log("Clicked walker:", extractedWalker);
+
+                // Show profile for that walker
+                showWalkerProfile(extractedWalker);
+
+                document.getElementById("add").style.display = "none";
                 document.getElementById("addDog").style.display = "none";
                 document.getElementById("logOut").style.display = "none";
                 document.getElementById("delete").style.display = "none";
                 document.getElementById("seeOtherWalkers").style.display = "";
 
                 showElementsByClass("owner");
-            };
+            }
                 
             afterLogin();
 
             document.getElementById("delete").addEventListener("click", function () { 
                 const choice = confirm("Your account will be permanently deleted and you won't be able to undo it!"); 
                 if (choice) { 
-                    alert("Your account has been successfully deleted. You will be redirected to the login page."); 
-                    //!IMPORTANT
-                    //delete account from database
-                    // redirecting to login page
-                    window.location.href = "login.html";
+                    alert("Your account has been successfully deleted. You will be redirected to the login page.");
+
+                    fetch("/delete", {
+                        method: "POST"
+                    }).then(response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    });
                 }
             });
 
-            document.getElementById("edit").addEventListener("click", function () { 
-                // redirect to setup page
-                window.location.href = "setup.html";
+            document.getElementById("edit").addEventListener("click", function () {
+
             });
 
             document.getElementById("addDog").addEventListener("click", function () { 
                 // redirect to setup page
-                window.location.href = "setup.html";
+                fetch("/edit/owner")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    });
             });
 
             document.getElementById("seeOtherWalkers").addEventListener("click", function () { 
@@ -566,11 +560,42 @@
             });
 
             document.body.addEventListener("click", function (e) {
+                const card = e.target.closest(".walkerCard");
+                if (!card) return;
+
+                // ignore the hidden template card if you have one
+                if (card.classList.contains("template")) return;
+
+                showWalkerToOwner(card);
+            });
+
+            document.body.addEventListener("click", function (e) {
                 if (e.target.closest(".edit")) {
                     let edit = e.target.closest(".edit");
                     if (edit.closest(".manageDog")) {
+                        const dogDataEl = document.querySelector(".dogData");
+
+                        const getValueAfterColon = (selector) => {
+                            const el = dogDataEl.querySelector(selector);
+                            if (!el) return "";
+                            const text = el.textContent.trim();
+                            const idx = text.indexOf(":");
+                            return idx >= 0 ? text.slice(idx + 1).trim() : "";
+                        };
+
+                        const params = new URLSearchParams({
+                            id: dogDataEl.dataset.dogId,
+                            name: getValueAfterColon(".name"),
+                            breed: getValueAfterColon(".breed"),
+                            age: getValueAfterColon(".age"),
+                            energyLevel: getValueAfterColon(".energyLevel"),
+                            allowedTreats: getValueAfterColon(".allowedTreats"),
+                            healthcare: getValueAfterColon(".healthcare"),
+                            personality: getValueAfterColon(".personality")
+                        });
+
                         // redirect to setup page
-                        window.location.href = "setup.html";
+                        window.location.href = `/edit/owner/edit?${params.toString()}`;
                     } else {
                         // edit appointment
                         edit.closest(".appointment").style.display = "none"
@@ -581,21 +606,57 @@
 
                 if (e.target.closest(".delete")) {
                     let remove = e.target.closest(".delete");
-                    if (edit.closest(".manageDog")) {
+                    if (role == "OWNER") {
                         const choice = confirm("This dog will be permanently removed and you won't be able to undo it!"); 
                         if (choice) { 
-                            alert("Selected dog has been successfully removed."); 
-                            //!IMPORTANT
-                            // delete selected dog from database
-                            window.location.reload();
+                            alert("Selected dog has been successfully removed.");
+
+                            const dogDataEl = document.querySelector(".dogData");
+
+                            const getValueAfterColon = (selector) => {
+                                const el = dogDataEl.querySelector(selector);
+                                if (!el) return "";
+                                const text = el.textContent.trim();
+                                const idx = text.indexOf(":");
+                                return idx >= 0 ? text.slice(idx + 1).trim() : "";
+                            };
+
+                            const params = new URLSearchParams({
+                                name: getValueAfterColon(".name"),
+                                breed: getValueAfterColon(".breed"),
+                                age: getValueAfterColon(".age"),
+                                energyLevel: getValueAfterColon(".energyLevel"),
+                                allowedTreats: getValueAfterColon(".allowedTreats"),
+                                healthcare: getValueAfterColon(".healthcare"),
+                                personality: getValueAfterColon(".personality")
+                            });
+
+                            fetch("/edit/owner/delete", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: params.toString()
+                            })
+                                .then(() => window.location.reload())
                         }
                     } else {
                         const choice = confirm("This appointment will be permanently removed and you won't be able to undo it!"); 
                         if (choice) { 
-                            alert("Selected appointment has been successfully removed."); 
-                            //!IMPORTANT
-                            // delete selected appointment from database
-                            window.location.reload();
+                            alert("Selected appointment has been successfully removed.");
+
+                            const appointmentEl = e.target.closest(".appointment");
+                            const eventId = appointmentEl.dataset.eventId;
+
+                            console.log("Deleting appointment id:", eventId);
+
+                            fetch("/walk/walker/delete", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: `id=${encodeURIComponent(eventId)}`
+                            }).then(() => window.location.reload());
                         }
                     }
                 }
@@ -607,10 +668,6 @@
                 if (e.target.closest(".walk")) {
                     // redirect to walk page
                     window.location.href = "walk.html";
-                }
-
-                if (e.target.closest(".walkerCard")) {
-                    showWalkerToOwner();
                 }
             });
 
@@ -679,16 +736,61 @@
                 document.getElementById("walkerLocation").style.display = "none";
                 document.getElementById("walkerPrice").style.display = "none";
                 filterBy = "grade";
-            }); 
-
-            document.getElementById("searchByFilter").addEventListener("click", function () { 
-                //!IMPORTANT
-                //form for filtering walkers was submitted
-                //filtered data will be needed in function findWalker
-                filterChosen = true;
-                findWalker();
             });
 
+            document.getElementById("defineFilter").addEventListener("submit", async (e) => {
+                e.preventDefault(); // stops page reload
+
+                const form = e.target;
+
+                const payload = {
+                    walkerLocation: form.walkerLocation.value,
+                    walkerPrice: form.walkerPrice.value ? Number(form.walkerPrice.value) : null,
+                    walkerGrade: form.walkerGrade.value ? Number(form.walkerGrade.value) : null
+                };
+
+                const res = await fetch("/search", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) {
+                    console.error("Search failed", await res.text());
+                    return;
+                }
+
+                const walkers = await res.json();
+                console.log(walkers)
+
+                findWalker(walkers)
+            });
+
+            // document.getElementById("searchByFilter").addEventListener("click", function () {
+            //     //!IMPORTANT
+            //     //form for filtering walkers was submitted
+            //     //filtered data will be needed in function findWalker
+            //     filterChosen = true;
+            //     findWalker();
+            // });
+
+            function parseWalkDetails(event) {
+                const desc = event.description || "";
+                console.log(event.start.dateTime)
+
+                const get = (label) => {
+                    const match = desc.match(new RegExp(`${label}:\\s*(.+)`));
+                    return match ? match[1].trim() : null;
+                };
+
+                return {
+                    id: event.id,
+                    type: get("Type"),
+                    price: get("Price") ? Number(get("Price")) : null,
+                    duration: get("Duration") ? String(get("Duration")) : null,
+                    datetime: (new Date(event.start.dateTime.value)).toLocaleString()
+                };
+            }
         })
     </script>
 </body>

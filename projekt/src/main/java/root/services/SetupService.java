@@ -67,10 +67,10 @@ public class SetupService {
                 dog.name(),
                 dog.breed(),
                 dog.age(),
-                dog.energylvl(),
-                dog.treat(),
-                dog.health(),
-                dog.social(),
+                dog.energyLevel(),
+                dog.allowedTreats(),
+                dog.healthcare(),
+                dog.personality(),
                 owner
         ));
 

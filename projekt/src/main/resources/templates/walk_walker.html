@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Google Calendar – PawPal Walks</h2>
+
+<ul>
+    <li th:each="e : ${walks}">
+        <b th:text="${e.summary}">Summary</b>
+        |
+        <span
+                th:text="${e.start.dateTime != null ? e.start.dateTime : e.start.date}">
+        </span>
+    </li>
+</ul>
+
+<h2>Add Walk</h2>
+
+<form id="slotForm" th:action="@{/walk/walker/submit}" method="post">
+
+    <label>
+        Walk type:
+        <select id="type" name="type">
+            <option value="INDIVIDUAL">Individual</option>
+            <option value="GROUP">Group</option>
+        </select>
+    </label>
+    <br>
+
+    <label>
+        Price:
+        <input id="price" name="price" type="number" step="0.01" required>
+    </label>
+    <br>
+
+    <label>
+        Duration (minutes):
+        <input id="duration" name="duration" type="number" required>
+    </label>
+    <br>
+
+    <label>
+        Start:
+        <input id="datetime" name="datetime" type="datetime-local" required>
+    </label>
+    <br>
+
+    <div class="confirm_bttn_wrap">
+        <div class="confirm_button">
+            <p><input type="submit" value="Confirm"></p>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

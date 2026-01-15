@@ -1,5 +1,7 @@
 package root.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,5 +20,11 @@ public class UserController {
     @GetMapping("/users")
     public Iterable<UserEntity> getUsers() {
         return this.userRepository.findAll();
+    }
+
+
+    @GetMapping("/owner/edit")
+    public String editAccount(Authentication authentication, HttpServletRequest request) {
+        return "edit_owner";
     }
 }

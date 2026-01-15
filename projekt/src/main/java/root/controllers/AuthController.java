@@ -109,4 +109,23 @@ public class AuthController {
 
         return "login";
     }
+
+    @PostMapping("/delete")
+    public String deleteAccount(Authentication authentication, HttpServletRequest request) {
+        if (authentication == null)
+            return "login";
+
+        // logout
+        request.getSession().invalidate();
+        SecurityContextHolder.clearContext();
+
+        // delete
+        try {
+            registrationService.delete(authentication.getName());
+        } catch (RuntimeException e) {
+            System.err.println("Exception when trying to delete account " + authentication.getName());
+        }
+
+        return "redirect:/login?delete";
+    }
 }

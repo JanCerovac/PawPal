@@ -1,11 +1,12 @@
 package root.data_objects;
 
 public record Dog(
+        Long id,
         String name,
         String breed,
         String age,
-        String energylvl,
-        String treat,
-        String health,
-        String social
+        String energyLevel,
+        String allowedTreats,
+        String healthcare,
+        String personality
 ) {}

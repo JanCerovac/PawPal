@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Setup</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" th:href="@{/css/setup.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="setup_topper">
+            Edit
+        </div>
+
+        <div class="profile_edit_doggo">
+            <div class="fill_in">
+                Please fill in the following regarding your dog:
+            </div>
+            <form th:action="@{/edit/owner/edit}" th:object="${dog}" method="post">
+                <input type="hidden" name="form" value="owner">
+
+                <!-- hidden id -->
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="inputBox">
+                    <p>Name: </p>
+                    <p><input type="text" th:field="*{name}" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Dog breed: </p>
+                    <p><input type="text" th:field="*{breed}" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Age: </p>
+                    <p><input type="text" th:field="*{age}" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Energy level: </p>
+                    <p><input type="text" th:field="*{energyLevel}" required></p>
+                </div>
+                <div class="inputBox">
+                    <p>Allowed treats: </p>
+                    <p><textarea th:field="*{allowedTreats}" rows="3"></textarea></p>
+                </div>
+                <div class="inputBox">
+                    <p>Healthcare: </p>
+                    <p><textarea th:field="*{healthcare}" rows="4"></textarea></p>
+                </div>
+                <div class="inputBox">
+                    <p>Personality: </p>
+                    <p><textarea th:field="*{personality}" rows="4"></textarea></p>                </div>
+                <div class="confirm_bttn_wrap">
+                    <div class="confirm_button">
+                        <p><input type="submit" value="Confirm"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

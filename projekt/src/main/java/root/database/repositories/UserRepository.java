@@ -33,4 +33,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Transactional
     @Modifying @Query("UPDATE UserEntity user SET user.role = :role WHERE user.username = :username")
     int setRoleForUsername(@Param("username") String username, @Param("role") String role);
+
+    @Transactional
+    @Modifying @Query("DELETE UserEntity user WHERE user.username = :username")
+    int deleteUserForUsername(@Param("username") String username);
 }

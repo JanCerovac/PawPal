@@ -2,6 +2,9 @@ package root.database.entites;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * --- WORK IN PROGRESS ---
  * Entity profila WALKER
@@ -17,7 +20,15 @@ public class WalkerEntity {
     private String contact;
     private String location;
 
-    private WalkerEntity() {}
+    @OneToMany(
+            mappedBy = "walker",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<WalkEntity> walks = new ArrayList<>();
+
+    public WalkerEntity() {}
 
     public WalkerEntity(String username, String name, String surname, String contact, String location) {
         this.username = username;
@@ -45,5 +56,13 @@ public class WalkerEntity {
 
     public String getLocation() {
         return location;
+    }
+
+    public void addWalk(WalkEntity walk) {
+        walks.add(walk);
+    }
+
+    public List<WalkEntity> getWalks() {
+        return walks;
     }
 }

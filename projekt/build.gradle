@@ -10,9 +10,8 @@ version = '0.0.1-SNAPSHOT'
 description = 'Demo project for Spring Boot'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -22,6 +21,7 @@ repositories {
 dependencies {
     // web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // ui
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -33,12 +33,25 @@ dependencies {
 
     // database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation "com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11"
+
+//    implementation platform("com.google.cloud:spring-cloud-gcp-dependencies:7.4.1")
+//    implementation("com.google.cloud:spring-cloud-gcp-starter-sql-postgresql")
+    implementation("org.postgresql:postgresql")
+    implementation 'com.google.cloud.sql:postgres-socket-factory:1.16.0'
+
+//    implementation "com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11"
 
     runtimeOnly 'com.h2database:h2'
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev20251207-2.0.0'
+    implementation 'com.google.auth:google-auth-library-oauth2-http'
+    implementation 'com.google.api-client:google-api-client:2.6.0'
+    implementation 'com.google.http-client:google-http-client-jackson2:1.43.3'
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {

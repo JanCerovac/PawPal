@@ -22,6 +22,8 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     ) throws IOException, ServletException {
         String msg = ex.getMessage();
 
+        ex.printStackTrace();
+
         // dodajemo error msg u session atribut
         request.getSession().setAttribute("SPRING_SECURITY_LAST_EXCEPTION_MESSAGE", msg);
 

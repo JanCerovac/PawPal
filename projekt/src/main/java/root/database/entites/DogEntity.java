@@ -43,6 +43,10 @@ public class DogEntity {
         this.owner = owner;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getUsername() {
         return username;
     }
