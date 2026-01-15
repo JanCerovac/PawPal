@@ -73,6 +73,7 @@ public class RootController {
         } else if (user.getRole().get().equals("OWNER")) {
             var dogs = ownerRepository.findByUsername(user.getUsername()).get().getDogs();
 
+            // dodaj pse u html
             model.addAttribute("dogs", dogs.stream().map(
                     d -> new Dog(d.getId(), d.getName(), d.getBreed(), d.getAge(), d.getEnergylvl(), d.getTreat(), d.getHealth(), d.getSocial())
             ).toList());
@@ -83,35 +84,6 @@ public class RootController {
         return "homepage";
     }
 
-    @PostMapping(value = "walk/walker/submit")
-    public String submit_walk(@ModelAttribute Walk walk, Authentication auth) {
-        try {
-            var walker = walkerRepository.findByUsername(auth.getName()).orElseThrow();
-            var name = walker.getName() + " " + walker.getSurname();
-
-            googleCalendarService.createWalkEvent(
-                    name,
-                    auth.getName(),
-                    walk.type(),
-                    walk.price(),
-                    walk.duration(),
-                    LocalDateTime.parse(walk.datetime())
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return "redirect:/";
-    }
-
-    @PostMapping(value = "walk/walker/delete")
-    public String delete_walk(@RequestParam String id, Authentication auth) {
-        try {
-            googleCalendarService.deleteEvent(id);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return "redirect:/";
-    }
 
     @PostMapping("/search")
     @ResponseBody

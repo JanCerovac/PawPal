@@ -540,7 +540,7 @@
 
             document.getElementById("addDog").addEventListener("click", function () { 
                 // redirect to setup page
-                fetch("/edit/owner")
+                fetch("/edit/owner/add")
                     .then(res => res.text())
                     .then(html => {
                         document.open();
@@ -678,7 +678,13 @@
 
             document.getElementById("paymentMethod").addEventListener("click", function () { 
                 // redirect to payment page
-                window.location.href = "payment.html";
+                fetch("/payment")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    });
             });
 
             document.getElementById("findWalker").addEventListener("click", function () { 

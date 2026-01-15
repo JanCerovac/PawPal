@@ -110,6 +110,10 @@ public class AuthController {
         return "login";
     }
 
+    /**
+     * endpoint za brisanje profila
+     * (POST /delete)
+     */
     @PostMapping("/delete")
     public String deleteAccount(Authentication authentication, HttpServletRequest request) {
         if (authentication == null)
