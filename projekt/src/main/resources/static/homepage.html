@@ -133,7 +133,7 @@
             </div>
         </form>
     </div>
-    <!--izmjena isto za Jakova-->
+    <!--klasa za container za kartice s terminima-->
     <div class="walkerContainer">
         <div class="termini-title">
             <h3>Choose one of the currently available walkers: </h3>
@@ -183,11 +183,11 @@
             </button>
         </div>
 
-        <!-- specijalan pop-up(za Jakova) -->
+        <!-- specijalan pop-up za termine -->
         <div id="rezervPop" class="rezervacijaPopUp hidden">
             <div class="sadrzajPopUp">
 
-                <span class="close">&times;</span>
+                <span class="close">&times;</span> <!--za zatvaranje prozora-->
 
                 <h2>Book a walking tour</h2>
 
@@ -208,6 +208,56 @@
                         <button type="submit">Confirm reservation</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <!--novi popup za prihvaćanje ili odbijanje rezervacije termina-->
+        <div id="prihPop" class="prihvatiPopUp hidden">
+            <div class="sadrzajPrihPop">
+
+                <h2>New reservation!</h2>
+
+                <div class="infoVlasnik">
+                    <p>Owner: Damjan Mamula</p>
+                    <p>Time: 18:00 - 20:00</p>
+                    <p>Type: group walk</p>
+                    <p>Starting address: FER</p>
+                    <!--dog info? bilo bi zgodno da se to vidi, ali šta ako je grupno??-->
+                    <p>Notes: My dog recently had his legs removed so you will have to carry him idgaf...</p>
+                </div>
+
+                <div class="buttonContainer">
+                    <div class="buttonDecline">
+                        <button type="submit">Decline</button>
+                    </div>
+
+                    <div class="buttonAccept">
+                        <button type="submit">Accept</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!--popup za vlasnika kad je rezervacija potvrdena-->
+        <div id="uSetnjiPop" class="uSetnjiPop">
+            <div class="sadrzajPop2">
+
+                <h2>Reservation confirmed!</h2>
+
+                <div class="shortInfo">
+                    <p>You have successfully reserved a walk!</p>
+                    <p>Short info about the walk...</p>
+                    <p>Walker: Jakov Andrić</p>
+                    <p>Time: 18:00 - 20:00</p>
+                    <p>Type: group walk</p>
+                    <p>Starting address: FER</p>
+                    <p>Please be sure to prepare your dog(s) for the walk before the walker arrives</p>
+                </div>
+
+                <div class="buttonContainer2">
+                    <button id="understood">Understood</button>
+                </div>
             </div>
         </div>
     </div>
@@ -565,7 +615,7 @@
                 showElementsByClass("owner");
             };
 
-            //Za Jakova od Damjana :]
+            //funkcija za prikaz termina
             function walkButtonFunc() {
                 hideAll(); //skrivam sve elemente
                 showElementsByClass("walkerContainer"); //otvaram ovaj walker container
@@ -778,7 +828,7 @@
                 findWalker();
             });
 
-            //dodatno za popup(za Jakova)
+            //dodatno za popup kod rezervacije termina
             const popup = document.getElementById("rezervPop");
             const closeBtn = popup.querySelector(".close");
             const setacText = document.getElementById("imeSetac");
@@ -801,7 +851,13 @@
                 }
             });
 
-            //ovdje je kraj Jakove
+            //popUp za uspjesnu rezervaciju
+            const understood = document.getElementById("understood");
+            const popup2 = document.getElementById("uSetnjiPop");
+
+            understood.addEventListener("click", () =>{
+                popup2.classList.add("hidden");
+            });
 
         })
     </script>

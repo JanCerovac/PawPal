@@ -1,4 +1,3 @@
-
 body{
     background-color: #FDA400;
     display: flex;
@@ -397,12 +396,155 @@ button:hover, input[type="submit"]:hover{
     display: none;
 }
 
+.prihvatiPopUp.hidden {
+    display: none;
+}
+
+.prihvatiPopUp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.sadrzajPrihPop {
+    background: white;
+    color: black;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 0px;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.sadrzajPrihPop h2{
+    background:#538b3c;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.infoVlasnik {
+    background: #598f014f;
+    border-radius: 15px;
+    padding: 20px;
+    color: black;
+    max-width: 500px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;   
+    min-width: 100%;
+}
+
+.buttonContainer button {
+    margin: 15px;
+    font-size: 1.35rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonAccept button{
+    background: #34BA44;
+    color: white;
+}
+
+.buttonDecline button{
+    background-color: rgb(221, 2, 2);
+    color: white;
+}
+
+.uSetnjiPop.hidden{
+    display: none;
+}
+
+.uSetnjiPop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.sadrzajPop2 {
+    background: white;
+    color: black;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 0px;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.sadrzajPop2 h2{
+    background:#538b3c;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.shortInfo {
+    background: #598f014f;
+    border-radius: 15px;
+    padding: 20px;
+    color: black;
+    max-width: 500px;
+}
+
+.buttonContainer2 {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;   
+    min-width: 100%;
+}
+
+.buttonContainer2 button {
+    margin: 15px;
+    font-size: 1.35rem;
+    background: #34BA44;
+    color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .close {
+    color: white;
     position: absolute;
     right: 10px;
     top: 5px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 40px;
 }
 
 @media (min-width: 615px) {
