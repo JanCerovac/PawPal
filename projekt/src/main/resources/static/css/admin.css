@@ -1,0 +1,239 @@
+html, body{
+    height: 100%;
+    margin: 0px;
+}
+
+body{
+    background-color: #FDA400;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    justify-content: space-between;
+}
+
+header {
+    background-color: #713600;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border-radius: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 13px;
+}
+
+#logo {
+    height: 100px;
+    width: auto;
+}
+
+#toolbar {
+    background-color: #713600;
+    color: white;
+    position: sticky;
+    bottom: 13px;
+    border-radius: 30px;
+    margin: 13px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+}
+
+button {
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color:#713600;
+    font-size: 0.8rem;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color:#381b00;
+}
+
+button, input[type="submit"]{
+    padding: 10px;
+    border-radius: 30px;
+    border-style: none;
+    font-size: 1rem;
+}
+
+#toolbar button.active {
+    background-color:#381b00;
+}
+
+.logout:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    background: rgb(192, 5, 5);
+}
+
+.stuffContainer {
+    height: 100%;
+    margin-top: 13px;
+    margin-bottom: 13px;;
+}
+
+.adminDeco {
+    background: #713600;
+    color: white;
+    border-top-right-radius: 13px;
+    border-bottom-right-radius: 13px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: fit-content;
+}
+
+.korisnik-card {
+    background: white;
+    border-radius: 15px;
+    margin: 32px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.user-flag {
+    background: #538b3c;
+    color: white;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: fit-content;
+}
+
+.user-flag h3{
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.user-box {
+    background: #598f014f;
+    color: #3a3a3a;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 13px;
+    margin-bottom: 0px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.deleteDugme {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.deleteDugme button{
+    background: rgb(203, 38, 38);
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 10px;
+    margin-top: 13px;
+    margin-right: 13px;
+    margin-bottom: 13px;
+    max-width: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.priceChanger {
+    background: white;
+    border-radius: 15px;
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.title-card {
+    background: #538b3c;
+    color: white;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.title-card h3{
+    margin-bottom: 15px;
+    margin-top: 0;
+    padding: 10px;
+}
+
+.oldBox {
+    background: #598f014f;
+    color: #3a3a3a;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 13px;
+    margin-bottom: 0px;
+    padding: 10px;
+    min-width: 330px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newBox {
+    background: #8f01014f;
+    color: #3a3a3a;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 13px;
+    margin-bottom: 13px;
+    padding: 10px;
+    min-width: 330px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newBox label {
+    display: flex;
+    flex-direction: row;
+}
+
+.newBox label p {
+    margin-right: 13px;
+}
+
+.newBox input {
+    border: none;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.bttnWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.priceChanger button{
+    width: fit-content;
+    border: none;
+    background: rgb(203, 38, 38);
+    color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 600px){
+    html {
+        background: radial-gradient(circle,rgba(253, 164, 0, 1) 0%, rgba(113, 54, 0, 1) 100%);
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    body {
+        width: 600px;
+        align-self: center;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+}
