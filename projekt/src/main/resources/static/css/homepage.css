@@ -1,4 +1,3 @@
-
 body{
     background-color: #FDA400;
     display: flex;
@@ -29,7 +28,7 @@ header {
     background-color: #713600;
     color: white;
     position: sticky;
-    bottom: 0;
+    bottom: 13px;
     width: 100%;
     border-radius: 30px;
     margin-bottom: 0;
@@ -240,6 +239,14 @@ button:hover, input[type="submit"]:hover{
     display: flex; 
     align-items: center; 
     gap: 5px;
+}
+
+.walking.skriven {
+    display: none;
+}
+
+#recommendedWalks.skriven {
+    display: none;
 }
 
 #addDog {
@@ -548,42 +555,32 @@ button:hover, input[type="submit"]:hover{
     font-size: 40px;
 }
 
-.termini-title {
-    background:#538b3c;
-    color: white;
-    border-radius: 15px;
-    padding: 10px;
-    margin: 16px;
-    margin-left: 32px;
-    margin-right: 32px;
-    margin-top: 32px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.termin-card {
+.pay-card {
     background: white;
     border-radius: 15px;
     margin: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.termin-flag {
+.title-card {
     background: #538b3c;
     color: white;
     border-bottom-right-radius: 15px;
-    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
     width: fit-content;
+    margin: 0 auto;
 }
 
-.termin-flag h3{
+.title-card h3{
     margin-bottom: 15px;
+    margin-top: 0;
     padding: 10px;
 }
 
-.termin-box {
+.priceBox {
     background: #598f014f;
     color: #3a3a3a;
     font-weight: bold;
@@ -591,89 +588,102 @@ button:hover, input[type="submit"]:hover{
     margin: 13px;
     margin-bottom: 0px;
     padding: 10px;
+    min-width: 330px;
     display: flex;
     flex-direction: column;
 }
-.rezervacijaDugme {
+
+.pay-card form {
+    background: #8f01014f;
+    color: #3a3a3a;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 13px;
+    margin-bottom: 13px;
+    padding: 0px;
+    min-width: 330px;
+    display: flex;
+    flex-direction: column;
+}
+.choose_role {
     display: flex;
     flex-direction: row;
-    justify-content: end;
-}
-
-.rezervacijaDugme button{
-    background: #34BA44;
-    color: white;
-    font-weight: bold;
-    border-radius: 30px;
+    align-items: baseline;
+    gap: 1.5rem;
+    background: white;
+    border-radius: 20px;
     padding: 10px;
-    margin-top: 13px;
-    margin-right: 13px;
-    margin-bottom: 13px;
+    margin: 20px;
+    margin-left: 32px;
     max-width: fit-content;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.rezervacijaPopUp {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.sadrzajPopUp {
-    background: white;
+.text_role {
+    background: #598f014f;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-left: 10px;
+    font-size: 1.5rem;
     color: black;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.sadrzajPopUp form {
-    background: #538b3c;
-    color: white;
-    border-radius: 15px;
-    padding: 10px;
-    display: flex;
-    min-width: 330px;
-    flex-direction: column;
-}
-
-.sadrzajPopUp label{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    background: #6d6d6dc2;
-    border-radius: 5px;
-}
-
-.popwrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-}
-
-.sadrzajPopUp button{
-    width: fit-content;
-}
-
-.rezervacijaPopUp.hidden {
+input[type="radio"] {
     display: none;
 }
 
-.close {
-    position: absolute;
-    right: 10px;
-    top: 5px;
+input[type="radio"]:checked + label {
+    background: rgb(222, 2, 2);
+    color: white;
+    transform: scale(1.05);
+}
+
+label {
+    font-size: 1.5rem;
+    background: #DEDEDE;
+    padding: 5px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-left: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+label:hover {
+    transform: scale(1.05);
+    background: #ffe9e9;
+}
+
+.reg_bttn_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-bottom: 20px;
+}
+
+.reg_button {
+    background: #585858;
+    width: fit-content;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.reg_button input{
+    background: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.reg_button input:hover{
+    transform: scale(1.05);
     cursor: pointer;
-    font-size: 20px;
 }
 
 @media (min-width: 615px) {
