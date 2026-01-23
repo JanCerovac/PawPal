@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Optional;
 
 /**
- * Entity našeg korisnika
+ * DATABASE ENTITY za korisnika
  */
 @Entity
 @Table(name = "users")

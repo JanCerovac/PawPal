@@ -3,11 +3,11 @@
         <meta charset='utf-8'>
         <title>PawPal</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' media='screen' href='admin.css'>
+        <link rel='stylesheet' th:href="@{/css/admin.css}">
     </head>
     <body>
         <header>
-            <img id="logo"src="images/logo.png">
+            <img id="logo"src="/images/logo.png">
         </header>
         <div class="stuffContainer">
             <div class="adminDeco">
@@ -19,15 +19,27 @@
         </div>
         <div id="toolbar">
             <button id="userManagement">
-                <img src="images/addTask.svg">
+                <img src="/images/addTask.svg">
                 <span id="manageUsers">Manage users</span>
             </button>
             <button id="paymentManagement">
-                <img src="images/addCard.svg">
+                <img src="/images/addCard.svg">
                 <span id="managePayment">Manage subscription</span>
             </button>
-            <button class="logout">LogOut</button>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout">Log out</button>
+            </form>
         </div>
-        <script src="admin.js"></script> 
+
+        <script th:inline="javascript">
+            window.korisnici = [[${users}]];
+
+            window.price = {
+                monthly: [[${price.monthly}]],
+                yearly: [[${price.yearly}]]
+            };
+        </script>
+
+        <script th:src="@{/scripts/admin.js}"></script>
     </body>
 </html>

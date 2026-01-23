@@ -2,6 +2,9 @@ package root.database.entites;
 
 import jakarta.persistence.*;
 
+/**
+ * DATABASE ENTITY za šetnju
+ */
 @Entity
 @Table(name = "walks")
 public class WalkEntity {

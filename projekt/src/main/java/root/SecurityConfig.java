@@ -52,9 +52,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // privremeno dopušta 'requests' bez csrf
-                // TODO: makni ovo
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
+                        .ignoringRequestMatchers("/admin/price", "/admin/delete", "/reservation/accept", "/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
                 )
                 // naš 'interceptor'
                 .userDetailsService(userDetailsService)

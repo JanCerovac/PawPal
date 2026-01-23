@@ -7,7 +7,7 @@ import root.database.entites.OwnerEntity;
 import java.util.Optional;
 
 /**
- * --- WORK IN PROGRESS --
+ * DATABASE REPOSITORY za upravljanje DogEntity-em
  */
 public interface DogRepository extends JpaRepository<DogEntity, Long> {
     void deleteByUsernameAndName(String username, String name);

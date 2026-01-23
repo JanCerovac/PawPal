@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * --- WORK IN PROGRESS ---
- * Entity profila WALKER
+ * DATABASE ENTITY za profil WALKER
  */
 @Entity
 @Table(name = "walkers")

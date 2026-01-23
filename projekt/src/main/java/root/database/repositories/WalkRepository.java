@@ -7,7 +7,6 @@ import root.database.entites.WalkerEntity;
 import java.util.Optional;
 
 /**
- * --- WORK IN PROGRESS --
+ * DATABASE REPOSITORY za upravljanje WalkEntity-em
  */
-public interface WalkRepository extends JpaRepository<WalkEntity, Long> {
-}
+public interface WalkRepository extends JpaRepository<WalkEntity, Long> {}

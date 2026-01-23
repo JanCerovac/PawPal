@@ -47,6 +47,6 @@ public class RegistrationService {
     }
 
     public void delete(String username) {
-        userRepository.deleteUserForUsername(username);
+        userRepository.deleteByUsername(username);
     }
 }

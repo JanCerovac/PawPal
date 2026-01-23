@@ -15,16 +15,13 @@ import java.util.Optional;
 public class OwnerService {
 
     private final OwnerRepository ownerRepository;
-    private final WalkerRepository walkerRepository;
     private final DogRepository dogRepository;
 
     public OwnerService(
             OwnerRepository ownerRepository,
-            WalkerRepository walkerRepository,
             DogRepository dogRepository
     ) {
         this.ownerRepository = ownerRepository;
-        this.walkerRepository = walkerRepository;
         this.dogRepository = dogRepository;
     }
 

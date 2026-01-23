@@ -17,14 +17,6 @@
             Login:
         </div>
     </div>
-        <div th:if="${param.error}">
-            <p class="info"
-               th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null
-              ? session['SPRING_SECURITY_LAST_EXCEPTION'].message
-              : 'Login failed.'}">
-                Login failed.
-            </p>
-        </div>
     <form th:action="@{/login}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 

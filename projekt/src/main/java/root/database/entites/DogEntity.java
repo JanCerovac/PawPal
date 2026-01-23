@@ -3,7 +3,7 @@ package root.database.entites;
 import jakarta.persistence.*;
 
 /**
- * Entity psa
+ * DATABASE ENTITY za psa
  */
 @Entity
 @Table(name = "dogs")

@@ -8,8 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * --- WORK IN PROGRESS ---
- * Entity profila OWNER
+ * DATABASE ENTITY za profil OWNER
  */
 @Entity
 @Table(name = "owners")

@@ -15,26 +15,21 @@ import java.util.Optional;
  */
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     // pronađi korisnika 'by username'
-    // vraća Optional.empty() ako ne postoji
     Optional<UserEntity> findByUsername(String username);
 
     // pronađi korisnika 'by email'
-    // vraća Optional.empty() ako ne postoji
     Optional<UserEntity> findByEmail(String email);
 
-    // --- provjere postojanosti ---
+    // provjere postojanosti
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
 
-    /**
-     * Promjeni korisnikovu ulogu
-     * @return broj promjenjenih 'rows'
-     */
+    // promjeni korisnikovu ulogu
     @Transactional
     @Modifying @Query("UPDATE UserEntity user SET user.role = :role WHERE user.username = :username")
-    int setRoleForUsername(@Param("username") String username, @Param("role") String role);
+    void setRoleForUsername(@Param("username") String username, @Param("role") String role);
 
+    // izbriši korisnika
     @Transactional
-    @Modifying @Query("DELETE UserEntity user WHERE user.username = :username")
-    int deleteUserForUsername(@Param("username") String username);
+    void deleteByUsername(String username);
 }
