@@ -164,7 +164,7 @@
                 <img src="/images/account.svg">
                 <span id="account">Account</span>
             </button>
-            <button class="walk">
+            <button class="walking">
                 <img src="/images/paw.svg">
                 <span id="walk">Walk</span>
             </button>
@@ -295,7 +295,13 @@
         window.dogs = [[${dogs}]]
         window.walkers = [[${walkers}]]
         window.events = [[${events}]]
+    </script>
 
+    <script th:inline="javascript" th:if="${role == 'WALKER'}">
+        window.price = {
+            monthly: [[${price.monthly}]],
+            yearly: [[${price.yearly}]]
+        };
     </script>
 
     <script th:src="@{/scripts/homepage.js}"></script>

@@ -687,6 +687,10 @@ label:hover {
 }
 
 @media (min-width: 615px) {
+    body {
+        min-width: 615px;
+    }
+
     .walker button, .owner button{
         display: flex;
         flex-direction: row;
@@ -735,6 +739,7 @@ label:hover {
         display: flex;
         align-content: center;
         justify-content: center;
+        min-width: 900px;
     }
 
     body {

@@ -53,14 +53,14 @@ public class SecurityConfig {
         http
                 // privremeno dopušta 'requests' bez csrf
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/admin/price", "/admin/delete", "/reservation/accept", "/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
+                        .ignoringRequestMatchers("/login", "/register", "/admin/price", "/admin/delete", "/reservation/accept", "/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
                 )
                 // naš 'interceptor'
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
                         // ovi 'endpoints' ne zahtjevaju login
                         .requestMatchers(
-                                "/ws/**", "/users", "/register", "/login", "/css/**", "/js/**", "/images/**"
+                                "/ws/**", "/register", "/login", "/css/**", "/scripts/**", "/images/**"
                         ).permitAll()
                         // svi ostali zahtjevaju
                         .anyRequest().authenticated()

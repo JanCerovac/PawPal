@@ -384,6 +384,58 @@ window.addEventListener("load", function () {
         });
     };
 
+    // funkcija za generiranje payment contenta
+    function paymentFunc() {
+
+        //skrivam suvisne elemente i prikazujem potrebne
+        hideAll();
+        showElementsByClass("walker");
+        showElementsByClass("walkerContainer");
+
+        //dohvacam kontejner
+        const container2 = document.querySelector(".walkerContainer");
+        container2.innerHTML = '';
+
+        //kreiram karticu za placanje
+        const pay = document.createElement("div");
+        pay.className = "pay-card";
+
+        const trenutno = [
+            {
+                cijenaMjesec: window.price.monthly,
+                cijenaGod: window.price.yearly
+            }
+        ];
+
+        pay.innerHTML = `
+                    <div>
+                        <div class = "title-card">
+                            <h3>Pay subscription</h3>
+                        </div>
+                        <div class="priceBox">
+                            <p>Monthly price: ${trenutno[0].cijenaMjesec} €</p>
+                            <p>Yearly price: ${trenutno[0].cijenaGod} €</p>
+                        </div>
+                        <form>
+                            <div class="choose_role">
+                                <div class="text_role">Pay:</div>
+                                <input type="radio" name="role" id="owner" checked>
+                                <label for="owner">Monthly</label>
+                                <input type="radio" name="role" id="walker">
+                                <label for="walker">Yearly</label>
+                            </div>
+                            <div class="reg_bttn_wrap">
+                                <div class="reg_button">
+                                    <p><input type="submit" value="Submit"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                `;
+
+        container2.appendChild(pay);
+    };
+
     afterLogin();
 
     document.getElementById("delete").addEventListener("click", function () {
@@ -543,16 +595,8 @@ window.addEventListener("load", function () {
         window.location.href = "walk.html";
     });
 
-    document.getElementById("paymentMethod").addEventListener("click", function () {
-        // redirect to payment page
-        fetch("/payment")
-            .then(res => res.text())
-            .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-            });
-    });
+    document.getElementById("paymentMethod")
+        .addEventListener("click", paymentFunc);
 
     document.getElementById("findWalker").addEventListener("click", function () {
         hideAll();
@@ -704,4 +748,10 @@ window.addEventListener("load", function () {
             reserved: desc.includes("REZERVACIJA")
         };
     }
+
+    const button1 = document.querySelector(".walking");
+    const button2 = document.getElementById("recommendedWalks");
+
+    button1.classList.add("skriven");
+    button2.classList.add("skriven");
 })

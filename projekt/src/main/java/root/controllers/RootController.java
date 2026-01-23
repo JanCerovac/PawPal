@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import root.data_objects.Dog;
 import root.data_objects.Filter;
+import root.database.entites.MembershipEntity;
 import root.database.entites.WalkerEntity;
+import root.database.repositories.MembershipRepository;
 import root.database.repositories.OwnerRepository;
 import root.database.repositories.UserRepository;
 import root.database.repositories.WalkerRepository;
@@ -21,6 +23,8 @@ public class RootController {
     private final OwnerRepository ownerRepository;
     private final WalkerRepository walkerRepository;
 
+    private final MembershipRepository membershipRepository;
+
     private final GoogleCalendarService googleCalendarService;
 
     // Spring Inject konstruktor
@@ -28,11 +32,13 @@ public class RootController {
             UserRepository repository,
             OwnerRepository ownerRepository,
             WalkerRepository walkerRepository,
+            MembershipRepository membershipRepository,
             GoogleCalendarService googleCalendarService
     ) {
         this.repository = repository;
         this.ownerRepository = ownerRepository;
         this.walkerRepository = walkerRepository;
+        this.membershipRepository = membershipRepository;
         this.googleCalendarService = googleCalendarService;
     }
 
@@ -72,6 +78,16 @@ public class RootController {
 
                 // dodaj walker-ove šetnje u html
                 model.addAttribute("walks", walks);
+
+                var price = membershipRepository.findById(1).orElseGet(() -> {
+                    var p = new MembershipEntity();
+                    p.setMonthly(10.0);
+                    p.setYearly(100.0);
+                    return membershipRepository.save(p);
+                });
+
+                // dodaj membership detalje u html
+                model.addAttribute("price", price);
             } catch (Exception ignored) {}
         } else if (user.getRole().get().equals("OWNER")) {
             var dogs = ownerRepository.findByUsername(user.getUsername()).get().getDogs();
