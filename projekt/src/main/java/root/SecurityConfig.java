@@ -53,7 +53,7 @@ public class SecurityConfig {
         http
                 // privremeno dopušta 'requests' bez csrf
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/login", "/register", "/admin/price", "/admin/delete", "/reservation/accept", "/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
+                        .ignoringRequestMatchers("/delete", "/login", "/register", "/admin/price", "/admin/delete", "/reservation/accept", "/walk/walker/delete", "/edit/owner/delete", "/search", "/setup", "/ws/**", "/", "/notifications/response", "/delete")  // or "/api/**"
                 )
                 // naš 'interceptor'
                 .userDetailsService(userDetailsService)

@@ -191,6 +191,32 @@ window.addEventListener("load", function () {
         clone.querySelector(".healthcare").innerHTML = "Healthcare: " + dog.healthcare;
         clone.querySelector(".personality").innerHTML = "Personality: " + dog.personality;
 
+        clone.querySelector(".manageDog .delete").addEventListener("click", () => {
+            const choice = confirm("This dog will be permanently removed and you won't be able to undo it!");
+            if (choice) {
+                alert("Selected dog has been successfully removed.");
+
+                const params = new URLSearchParams({
+                    name: dog.name,
+                    breed: dog.breed,
+                    age: dog.age,
+                    energyLevel: dog.energyLevel,
+                    allowedTreats: dog.allowedTreats,
+                    healthcare: dog.healthcare,
+                    personality: dog.personality
+                });
+
+                fetch("/edit/owner/delete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: params.toString()
+                })
+                    .then(() => window.location.reload())
+            }
+        })
+
         document.querySelector(".dogContainer").insertAdjacentElement("beforeend", clone);
     }
 
@@ -438,21 +464,6 @@ window.addEventListener("load", function () {
 
     afterLogin();
 
-    document.getElementById("delete").addEventListener("click", function () {
-        const choice = confirm("Your account will be permanently deleted and you won't be able to undo it!");
-        if (choice) {
-            alert("Your account has been successfully deleted. You will be redirected to the login page.");
-
-            fetch("/delete", {
-                method: "POST"
-            }).then(response => {
-                if (response.redirected) {
-                    window.location.href = response.url;
-                }
-            });
-        }
-    });
-
     document.getElementById("edit").addEventListener("click", function () {
 
     });
@@ -526,39 +537,7 @@ window.addEventListener("load", function () {
         if (e.target.closest(".delete")) {
             let remove = e.target.closest(".delete");
             if (role == "OWNER") {
-                const choice = confirm("This dog will be permanently removed and you won't be able to undo it!");
-                if (choice) {
-                    alert("Selected dog has been successfully removed.");
 
-                    const dogDataEl = document.querySelector(".dogData");
-
-                    const getValueAfterColon = (selector) => {
-                        const el = dogDataEl.querySelector(selector);
-                        if (!el) return "";
-                        const text = el.textContent.trim();
-                        const idx = text.indexOf(":");
-                        return idx >= 0 ? text.slice(idx + 1).trim() : "";
-                    };
-
-                    const params = new URLSearchParams({
-                        name: getValueAfterColon(".name"),
-                        breed: getValueAfterColon(".breed"),
-                        age: getValueAfterColon(".age"),
-                        energyLevel: getValueAfterColon(".energyLevel"),
-                        allowedTreats: getValueAfterColon(".allowedTreats"),
-                        healthcare: getValueAfterColon(".healthcare"),
-                        personality: getValueAfterColon(".personality")
-                    });
-
-                    fetch("/edit/owner/delete", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: params.toString()
-                    })
-                        .then(() => window.location.reload())
-                }
             } else {
                 const choice = confirm("This appointment will be permanently removed and you won't be able to undo it!");
                 if (choice) {

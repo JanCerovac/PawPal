@@ -110,7 +110,10 @@
         <div class="image"></div>
     </div>
     <div class="manageAccount">
-        <button id="delete">Delete account</button>
+        <form action="/delete" method="post"
+              onsubmit="return confirm('Your account will be permanently deleted and you won\'t be able to undo it!')">
+            <button type="submit" id="delete">Delete account</button>
+        </form>
         <button id="addDog">Add dog</button>
         <form id="logOut"  th:action="@{/logout}" method="post">
             <button type="submit">Log out</button>
